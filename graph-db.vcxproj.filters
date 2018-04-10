@@ -270,6 +270,9 @@
     <ClInclude Include="graphdb-api\Transaction.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="graphdb-api\Relationship.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kernel\impl\store\format\standard\LabelTokenRecordFormat.cpp">
@@ -509,22 +512,22 @@
     <ClCompile Include="graphdb-api\DynamicRelationshipType.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="graphdb-api\Entity.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="graphdb-api\Label.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="graphdb-api\Lock.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="graphdb-api\Node.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="graphdb-api\RelationshipType.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="graphdb-api\Transaction.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="graphdb-api\Relationship.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

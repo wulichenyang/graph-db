@@ -10,14 +10,13 @@ using namespace std;
 class NodeProxy: public Node
 {
 public:
-	NodeProxy();
 	NodeProxy(EmbeddedProxySPI *spi, long nodeId);
 	virtual ~NodeProxy();
-	long getId() const;
-	void remove();
-	vector<Relationship>::iterator getRelationships() const;
-	vector<Relationship>::iterator getRelationships(RelationshipType types) const;
-	Relationship *createRelationshipTo(Node *otherNode, RelationshipType type);
+	long getId() const override;
+	void remove() override;
+	vector<Relationship*>::iterator getRelationships() const override;
+	vector<Relationship*>::iterator getRelationships(RelationshipType types) const override;
+	Relationship *createRelationshipTo(Node *otherNode, RelationshipType type) override;
 	string toString() const;
 private:
 	EmbeddedProxySPI *spi;

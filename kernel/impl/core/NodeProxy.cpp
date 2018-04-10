@@ -2,11 +2,6 @@
 
 
 
-NodeProxy::NodeProxy()
-{
-}
-
-
 NodeProxy::NodeProxy(EmbeddedProxySPI * spi, long nodeId)
 {
 }
@@ -24,17 +19,23 @@ void NodeProxy::remove()
 {
 }
 
-vector<Relationship>::iterator NodeProxy::getRelationships() const
+vector<Relationship*>::iterator NodeProxy::getRelationships() const
 {
-	return vector<Relationship>::iterator();
+	return vector<Relationship*>::iterator();
 }
 
-vector<Relationship>::iterator NodeProxy::getRelationships(RelationshipType types) const
+vector<Relationship*>::iterator NodeProxy::getRelationships(RelationshipType types) const
 {
-	return vector<Relationship>::iterator();
+	return vector<Relationship*>::iterator();
 }
 
-Relationship *NodeProxy::createRelationshipTo(Node * otherNode, RelationshipType type)
+Relationship * NodeProxy::createRelationshipTo(Node * otherNode, RelationshipType type)
 {
-	return Relationship();
+	return nullptr;
 }
+
+string NodeProxy::toString() const
+{
+	return string();
+}
+

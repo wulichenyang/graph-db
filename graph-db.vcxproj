@@ -47,6 +47,7 @@
     <ClInclude Include="graphdb-api\Lock.h" />
     <ClInclude Include="graphdb-api\Node.h" />
     <ClInclude Include="graphdb-api\RelationshipType.h" />
+    <ClInclude Include="graphdb-api\Relationship.h" />
     <ClInclude Include="storageengine\api\txstate\DiffSetsVisitor.h" />
     <ClInclude Include="storageengine\api\Direction.h" />
     <ClInclude Include="kernel\impl\store\AbstractDynamicStore.h" />
@@ -108,7 +109,6 @@
   <ItemGroup>
     <ClCompile Include="graphdb-api\DynamicLabel.cpp" />
     <ClCompile Include="graphdb-api\DynamicRelationshipType.cpp" />
-    <ClCompile Include="graphdb-api\Entity.cpp" />
     <ClCompile Include="kernel\impl\newapi\AllStoreHolder.cpp" />
     <ClCompile Include="kernel\impl\newapi\KernelToken.cpp" />
     <ClCompile Include="kernel\impl\factory\GraphDatabaseFacade.cpp" />
@@ -132,8 +132,9 @@
     <ClCompile Include="kernel\impl\storageengine\impl\recordstorage\RecordStorageEngine.cpp" />
     <ClCompile Include="graphdb-api\Label.cpp" />
     <ClCompile Include="graphdb-api\Lock.cpp" />
-    <ClCompile Include="graphdb-api\Node.cpp" />
     <ClCompile Include="graphdb-api\RelationshipType.cpp" />
+    <ClCompile Include="graphdb-api\Relationship.cpp" />
+    <ClCompile Include="test\main.cpp" />
     <ClCompile Include="storageengine\api\txstate\DiffSetsVisitor.cpp" />
     <ClCompile Include="storageengine\api\Direction.cpp" />
     <ClCompile Include="kernel\impl\store\AbstractDynamicStore.cpp" />
