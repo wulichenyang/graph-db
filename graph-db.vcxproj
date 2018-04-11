@@ -133,7 +133,6 @@
     <ClCompile Include="graphdb-api\Label.cpp" />
     <ClCompile Include="graphdb-api\Lock.cpp" />
     <ClCompile Include="graphdb-api\RelationshipType.cpp" />
-    <ClCompile Include="graphdb-api\Relationship.cpp" />
     <ClCompile Include="test\main.cpp" />
     <ClCompile Include="storageengine\api\txstate\DiffSetsVisitor.cpp" />
     <ClCompile Include="storageengine\api\Direction.cpp" />

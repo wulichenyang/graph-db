@@ -11,11 +11,11 @@ class NodeProxy: public Node
 {
 public:
 	NodeProxy(EmbeddedProxySPI *spi, long nodeId);
-	virtual ~NodeProxy();
+	~NodeProxy();
 	long getId() const override;
 	void remove() override;
 	vector<Relationship*>::iterator getRelationships() const override;
-	vector<Relationship*>::iterator getRelationships(RelationshipType types) const override;
+	vector<Relationship*>::iterator getRelationships(RelationshipType type) const override;
 	Relationship *createRelationshipTo(Node *otherNode, RelationshipType type) override;
 	string toString() const;
 private:

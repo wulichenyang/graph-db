@@ -524,9 +524,6 @@
     <ClCompile Include="graphdb-api\Transaction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="graphdb-api\Relationship.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="test\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

@@ -24,7 +24,7 @@ vector<Relationship*>::iterator NodeProxy::getRelationships() const
 	return vector<Relationship*>::iterator();
 }
 
-vector<Relationship*>::iterator NodeProxy::getRelationships(RelationshipType types) const
+vector<Relationship*>::iterator NodeProxy::getRelationships(RelationshipType type) const
 {
 	return vector<Relationship*>::iterator();
 }
