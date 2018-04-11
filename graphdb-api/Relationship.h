@@ -8,8 +8,6 @@ class Relationship: public Entity
 public:
 	virtual long getId() const override = 0;
 	virtual void remove() = 0;
-	virtual Node *getStartNode() const = 0;
-	virtual Node *getEndNode() const = 0;
 	virtual RelationshipType getType() const = 0;
 	virtual bool isType(RelationshipType type) const = 0;
 	virtual long getStartNodeId() const = 0;

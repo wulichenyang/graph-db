@@ -2,7 +2,7 @@
 
 
 
-NodeProxy::NodeProxy(EmbeddedProxySPI * spi, long nodeId)
+NodeProxy::NodeProxy(EmbeddedProxySPI * spi, const long & nodeId)
 {
 }
 

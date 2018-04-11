@@ -19,8 +19,8 @@ public:
 	long sourceId() const;
 	long targetId() const;
 	void remove() override;
-	Node *getStartNode() const override;
-	Node *getEndNode() const override;
+	Node *getStartNode() const;
+	Node *getEndNode() const;
 	RelationshipType getType() const override;
 	bool isType(RelationshipType type) const override;
 	long getStartNodeId() const override;
@@ -28,7 +28,7 @@ public:
 	long getOtherNodeId(long id) const override;
 
 private:
-	EmbeddedProxySPI actions;
+	EmbeddedProxySPI *actions;
 	long id = NO_ID;
 	long startNode = NO_ID;
 	long endNode = NO_ID;

@@ -261,13 +261,13 @@
     <ClInclude Include="graphdb-api\Lock.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="graphdb-api\Node.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="graphdb-api\RelationshipType.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="graphdb-api\Transaction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="graphdb-api\Node.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="graphdb-api\Relationship.h">

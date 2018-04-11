@@ -6,11 +6,13 @@ using namespace std;
 class Token
 {
 public:
-	Token();
+	Token(string name, int id);
 	~Token();
+	string getName() const;
+	int getId() const;
 
 private:
-	const static string name;
-	const static int id;
+	string name;
+	int id;
 };
 
