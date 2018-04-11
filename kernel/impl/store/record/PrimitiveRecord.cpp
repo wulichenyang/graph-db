@@ -19,15 +19,16 @@ PrimitiveRecord::PrimitiveRecord(long id, long nextProp)
 
 long PrimitiveRecord::getNextProp() const
 {
-	return 0;
+	return nextProp;
 }
 
 void PrimitiveRecord::setNextProp(long nextProp)
 {
+	this->nextProp = nextProp;
 }
 
 void PrimitiveRecord::clear()
 {
 	__super::clear();
-	nextProp = 
+	nextProp = (Record(Record::NOT_IN_USE)).getIntType();
 }

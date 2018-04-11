@@ -27,6 +27,7 @@ public:
 	int getIntType() const;
 	long getLongType() const;
 	char getByteType() const;
+	bool is(long value) const;
 
 };
 

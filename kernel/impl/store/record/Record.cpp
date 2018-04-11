@@ -31,3 +31,8 @@ char Record::getByteType() const
 {
 	return state;
 }
+
+bool Record::is(long value) const
+{
+	return value == (this->getLongType());
+}

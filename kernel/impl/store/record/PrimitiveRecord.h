@@ -1,5 +1,7 @@
 #pragma once
 #include "AbstractBaseRecord.h"
+#include "Record.h"
+
 class PrimitiveRecord: public AbstractBaseRecord
 {
 public:
