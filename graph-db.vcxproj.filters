@@ -273,6 +273,48 @@
     <ClInclude Include="graphdb-api\Relationship.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="kernel\impl\transaction\command\Command.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\impl\transaction\state\RecordAccess.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\impl\transaction\state\RecordAccessSet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\impl\transaction\state\RecordChanges.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\impl\transaction\state\RecordChangeSet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\impl\transaction\state\RelationshipCreator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\impl\transaction\state\RelationshipDeleter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\impl\transaction\state\TransactionRecordState.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\impl\util\diffsets\SuperDiffSets.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\impl\util\diffsets\RelationshipDiffSets.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\impl\util\diffsets\DiffSets.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\impl\util\diffsets\PrimitiveLongDiffSets.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\internal\EmbeddedGraphDatabase.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\internal\GraphDatabaseAPI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kernel\impl\store\format\standard\LabelTokenRecordFormat.cpp">
@@ -525,6 +567,48 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="test\main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\transaction\command\Command.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\transaction\state\RecordAccess.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\transaction\state\RecordAccessSet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\transaction\state\RecordChanges.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\transaction\state\RecordChangeSet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\transaction\state\RelationshipCreator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\transaction\state\RelationshipDeleter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\transaction\state\TransactionRecordState.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\util\diffsets\RelationshipDiffSets.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\util\diffsets\SuperDiffSets.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\util\diffsets\DiffSets.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\util\diffsets\PrimitiveLongDiffSets.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\internal\EmbeddedGraphDatabase.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\internal\GraphDatabaseAPI.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

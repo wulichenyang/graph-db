@@ -2,6 +2,10 @@
 
 
 
+AbstractBaseRecord::AbstractBaseRecord()
+{
+}
+
 AbstractBaseRecord::AbstractBaseRecord(long id)
 {
 	this->id = id;

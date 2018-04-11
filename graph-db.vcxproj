@@ -19,6 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="kernel\internal\EmbeddedGraphDatabase.h" />
+    <ClInclude Include="kernel\internal\GraphDatabaseAPI.h" />
+    <ClInclude Include="kernel\impl\util\diffsets\DiffSets.h" />
+    <ClInclude Include="kernel\impl\transaction\command\Command.h" />
     <ClInclude Include="graphdb-api\DynamicLabel.h" />
     <ClInclude Include="graphdb-api\DynamicRelationshipType.h" />
     <ClInclude Include="graphdb-api\Entity.h" />
@@ -48,6 +52,14 @@
     <ClInclude Include="graphdb-api\Node.h" />
     <ClInclude Include="graphdb-api\RelationshipType.h" />
     <ClInclude Include="graphdb-api\Relationship.h" />
+    <ClInclude Include="kernel\impl\transaction\state\RecordAccess.h" />
+    <ClInclude Include="kernel\impl\transaction\state\RecordAccessSet.h" />
+    <ClInclude Include="kernel\impl\transaction\state\RecordChanges.h" />
+    <ClInclude Include="kernel\impl\transaction\state\RecordChangeSet.h" />
+    <ClInclude Include="kernel\impl\transaction\state\RelationshipCreator.h" />
+    <ClInclude Include="kernel\impl\transaction\state\RelationshipDeleter.h" />
+    <ClInclude Include="kernel\impl\util\diffsets\PrimitiveLongDiffSets.h" />
+    <ClInclude Include="kernel\impl\util\diffsets\RelationshipDiffSets.h" />
     <ClInclude Include="storageengine\api\txstate\DiffSetsVisitor.h" />
     <ClInclude Include="storageengine\api\Direction.h" />
     <ClInclude Include="kernel\impl\store\AbstractDynamicStore.h" />
@@ -105,8 +117,14 @@
     <ClInclude Include="kernel\impl\storageengine\impl\recordstorage\StoreStatement.h" />
     <ClInclude Include="kernel\impl\storageengine\impl\recordstorage\TransactionToRecordStateVisitor.h" />
     <ClInclude Include="graphdb-api\Transaction.h" />
+    <ClInclude Include="kernel\impl\transaction\state\TransactionRecordState.h" />
+    <ClInclude Include="kernel\impl\util\diffsets\SuperDiffSets.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="kernel\internal\EmbeddedGraphDatabase.cpp" />
+    <ClCompile Include="kernel\internal\GraphDatabaseAPI.cpp" />
+    <ClCompile Include="kernel\impl\util\diffsets\DiffSets.cpp" />
+    <ClCompile Include="kernel\impl\transaction\command\Command.cpp" />
     <ClCompile Include="graphdb-api\DynamicLabel.cpp" />
     <ClCompile Include="graphdb-api\DynamicRelationshipType.cpp" />
     <ClCompile Include="kernel\impl\newapi\AllStoreHolder.cpp" />
@@ -133,6 +151,15 @@
     <ClCompile Include="graphdb-api\Label.cpp" />
     <ClCompile Include="graphdb-api\Lock.cpp" />
     <ClCompile Include="graphdb-api\RelationshipType.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\RecordAccess.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\RecordAccessSet.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\RecordChanges.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\RecordChangeSet.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\RelationshipCreator.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\RelationshipDeleter.cpp" />
+    <ClCompile Include="kernel\impl\util\diffsets\PrimitiveLongDiffSets.cpp" />
+    <ClCompile Include="kernel\impl\util\diffsets\RelationshipDiffSets.cpp" />
+    <ClCompile Include="kernel\impl\util\diffsets\SuperDiffSets.cpp" />
     <ClCompile Include="test\main.cpp" />
     <ClCompile Include="storageengine\api\txstate\DiffSetsVisitor.cpp" />
     <ClCompile Include="storageengine\api\Direction.cpp" />
@@ -191,6 +218,7 @@
     <ClCompile Include="kernel\impl\storageengine\impl\recordstorage\StoreStatement.cpp" />
     <ClCompile Include="kernel\impl\storageengine\impl\recordstorage\TransactionToRecordStateVisitor.cpp" />
     <ClCompile Include="graphdb-api\Transaction.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\TransactionRecordState.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
