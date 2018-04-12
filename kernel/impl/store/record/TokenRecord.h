@@ -12,7 +12,7 @@ class TokenRecord: public AbstractBaseRecord
 {
 public:
 	TokenRecord();
-	~TokenRecord();
+	virtual ~TokenRecord();
 	TokenRecord(int id);
 	virtual TokenRecord initialize(bool inUse, int nameId);
 	void clear() override;

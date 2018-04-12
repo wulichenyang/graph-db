@@ -1,5 +1,7 @@
 #pragma once
-class RelationshipTypeTokenRecord
+#include "TokenRecord.h"
+
+class RelationshipTypeTokenRecord: public TokenRecord
 {
 public:
 	RelationshipTypeTokenRecord();

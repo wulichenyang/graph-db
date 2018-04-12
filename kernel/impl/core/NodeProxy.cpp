@@ -19,14 +19,14 @@ void NodeProxy::remove()
 {
 }
 
-vector<Relationship*>::iterator NodeProxy::getRelationships() const
+vector<Relationship*> NodeProxy::getRelationships() const
 {
-	return vector<Relationship*>::iterator();
+	return vector<Relationship*>();
 }
 
-vector<Relationship*>::iterator NodeProxy::getRelationships(RelationshipType type) const
+vector<Relationship*> NodeProxy::getRelationships(RelationshipType type) const
 {
-	return vector<Relationship*>::iterator();
+	return vector<Relationship*>();
 }
 
 Relationship * NodeProxy::createRelationshipTo(Node * otherNode, RelationshipType type)

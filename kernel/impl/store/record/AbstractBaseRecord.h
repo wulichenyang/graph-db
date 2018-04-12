@@ -18,7 +18,7 @@ protected:
 	long id;
 	bool inUseFlag;
 	bool created;
-	AbstractBaseRecord initialize(bool inUse);
+	virtual AbstractBaseRecord initialize(bool inUse);
 
 };
 

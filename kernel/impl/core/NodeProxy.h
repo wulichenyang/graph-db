@@ -14,8 +14,8 @@ public:
 	~NodeProxy();
 	long getId() const override;
 	void remove() override;
-	vector<Relationship*>::iterator getRelationships() const;
-	vector<Relationship*>::iterator getRelationships(RelationshipType type) const;
+	vector<Relationship*> getRelationships() const;
+	vector<Relationship*> getRelationships(RelationshipType type) const;
 	Relationship *createRelationshipTo(Node *otherNode, RelationshipType type);
 	string toString() const;
 private:
