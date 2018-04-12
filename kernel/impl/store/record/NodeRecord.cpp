@@ -16,6 +16,7 @@ NodeRecord NodeRecord::initialize(bool inUse, long nextProp, long nextRel, long 
 	this->nextProp = nextProp;
 	this->nextRel = nextRel;
 	this->labels = labels;
+	return *this;
 }
 
 NodeRecord::NodeRecord(long id, long nextRel, long nextProp)
@@ -55,7 +56,7 @@ void NodeRecord::setLabelField(long labels, vector<DynamicRecord> dynamicRecords
 {
 	this->labels = labels;
 	this->dynamicLabelRecords = dynamicLabelRecords;
-	this->isLightFlag = dynamicRecords.isEmpty();
+	this->isLightFlag = dynamicRecords.empty();
 }
 
 long NodeRecord::getLabelField() const

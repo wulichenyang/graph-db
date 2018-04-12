@@ -1,7 +1,6 @@
 #include "RelationshipRecord.h"
 
 
-
 RelationshipRecord::RelationshipRecord()
 {
 }
@@ -12,8 +11,8 @@ RelationshipRecord::~RelationshipRecord()
 }
 
 RelationshipRecord::RelationshipRecord(long id, long firstNode, long secondNode, int type)
+	:PrimitiveRecord(id)
 {
-	RelationshipRecord(id);
 	this->firstNode = firstNode;
 	this->secondNode = secondNode;
 	this->type = type;
