@@ -4,7 +4,7 @@ class AbstractBaseRecord
 public:
 	AbstractBaseRecord();
 	AbstractBaseRecord(long id);
-	~AbstractBaseRecord();
+	virtual ~AbstractBaseRecord();
 
 	virtual void clear();
 	virtual long getId() const;
@@ -15,12 +15,10 @@ public:
 	virtual bool isCreated() const final;
 
 protected:
-	AbstractBaseRecord initialize(bool inUse);
-
-private:
 	long id;
 	bool inUseFlag;
 	bool created;
+	AbstractBaseRecord initialize(bool inUse);
 
 };
 

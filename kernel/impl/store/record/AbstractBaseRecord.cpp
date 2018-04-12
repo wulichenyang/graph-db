@@ -55,7 +55,7 @@ bool AbstractBaseRecord::isCreated() const
 
 AbstractBaseRecord AbstractBaseRecord::initialize(bool inUse)
 {
-	this->inUse = inUse;
+	inUseFlag = inUse;
 	created = false;
 	return *this;
 }

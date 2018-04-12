@@ -5,7 +5,8 @@
 class PrimitiveRecord: public AbstractBaseRecord
 {
 public:
-	~PrimitiveRecord();
+	PrimitiveRecord();
+	virtual ~PrimitiveRecord();
 	PrimitiveRecord(long id);
 	PrimitiveRecord(long id, long nextProp);
 	virtual long getNextProp() const;
@@ -13,7 +14,6 @@ public:
 
 protected:
 	long nextProp;
-
 	virtual void clear() override;
 };
 

@@ -2,18 +2,20 @@
 
 
 
+PrimitiveRecord::PrimitiveRecord()
+{
+}
+
 PrimitiveRecord::~PrimitiveRecord()
 {
 }
 
-PrimitiveRecord::PrimitiveRecord(long id)
+PrimitiveRecord::PrimitiveRecord(long id):AbstractBaseRecord(id)
 {
-	__super::AbstractBaseRecord(id);
 }
 
-PrimitiveRecord::PrimitiveRecord(long id, long nextProp)
+PrimitiveRecord::PrimitiveRecord(long id, long nextProp):AbstractBaseRecord(id)
 {
-	__super::AbstractBaseRecord(id);
 	this->nextProp = nextProp;
 }
 
@@ -29,6 +31,6 @@ void PrimitiveRecord::setNextProp(long nextProp)
 
 void PrimitiveRecord::clear()
 {
-	__super::clear();
+	AbstractBaseRecord::clear();
 	nextProp = (Record(Record::NOT_IN_USE)).getIntType();
 }
