@@ -1,5 +1,6 @@
 #pragma once
-class FreeIdKeeper
+#include "../../../../graphdb-api/Closeable.h"
+class FreeIdKeeper: public Closeable
 {
 public:
 	FreeIdKeeper();

@@ -315,6 +315,21 @@
     <ClInclude Include="kernel\internal\GraphDatabaseAPI.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="kernel\impl\store\id\IdSequence.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="graphdb-api\Closeable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="primitive-collections\primitive\PrimitiveLongArrayQueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="primitive-collections\primitive\PrimitiveLongArrayQueueIterator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\impl\util\Computer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kernel\impl\store\format\standard\LabelTokenRecordFormat.cpp">
@@ -609,6 +624,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="kernel\internal\GraphDatabaseAPI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="primitive-collections\primitive\PrimitiveLongArrayQueue.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="primitive-collections\primitive\PrimitiveLongArrayQueueIterator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\impl\util\Computer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="kernel\impl\util\Computer.h" />
+    <ClInclude Include="graphdb-api\Closeable.h" />
+    <ClInclude Include="kernel\impl\store\id\IdSequence.h" />
     <ClInclude Include="kernel\internal\EmbeddedGraphDatabase.h" />
     <ClInclude Include="kernel\internal\GraphDatabaseAPI.h" />
     <ClInclude Include="kernel\impl\util\diffsets\DiffSets.h" />
@@ -60,6 +63,8 @@
     <ClInclude Include="kernel\impl\transaction\state\RelationshipDeleter.h" />
     <ClInclude Include="kernel\impl\util\diffsets\PrimitiveLongDiffSets.h" />
     <ClInclude Include="kernel\impl\util\diffsets\RelationshipDiffSets.h" />
+    <ClInclude Include="primitive-collections\primitive\PrimitiveLongArrayQueue.h" />
+    <ClInclude Include="primitive-collections\primitive\PrimitiveLongArrayQueueIterator.h" />
     <ClInclude Include="storageengine\api\txstate\DiffSetsVisitor.h" />
     <ClInclude Include="storageengine\api\Direction.h" />
     <ClInclude Include="kernel\impl\store\AbstractDynamicStore.h" />
@@ -121,6 +126,7 @@
     <ClInclude Include="kernel\impl\util\diffsets\SuperDiffSets.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="kernel\impl\util\Computer.cpp" />
     <ClCompile Include="kernel\internal\EmbeddedGraphDatabase.cpp" />
     <ClCompile Include="kernel\internal\GraphDatabaseAPI.cpp" />
     <ClCompile Include="kernel\impl\util\diffsets\DiffSets.cpp" />
@@ -160,6 +166,8 @@
     <ClCompile Include="kernel\impl\util\diffsets\PrimitiveLongDiffSets.cpp" />
     <ClCompile Include="kernel\impl\util\diffsets\RelationshipDiffSets.cpp" />
     <ClCompile Include="kernel\impl\util\diffsets\SuperDiffSets.cpp" />
+    <ClCompile Include="primitive-collections\primitive\PrimitiveLongArrayQueue.cpp" />
+    <ClCompile Include="primitive-collections\primitive\PrimitiveLongArrayQueueIterator.cpp" />
     <ClCompile Include="test\main.cpp" />
     <ClCompile Include="storageengine\api\txstate\DiffSetsVisitor.cpp" />
     <ClCompile Include="storageengine\api\Direction.cpp" />
