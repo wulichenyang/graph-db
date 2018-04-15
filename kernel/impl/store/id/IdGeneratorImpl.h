@@ -12,9 +12,9 @@ public:
 	~IdGeneratorImpl();
 
 private:
-	const long max;
-	const IdContainer idContainer;
+	long max;
+	IdContainer idContainer;
 	long highId;
-	const IdType idType;
+	IdType idType;
 };
 

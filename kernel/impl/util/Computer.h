@@ -6,5 +6,5 @@ public:
 	~Computer();
 
 	template <class T>
-	const static int arrayLen(const T& array)const;
+	static int arrayLen(const T& array);
 };

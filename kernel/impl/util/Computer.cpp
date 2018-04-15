@@ -12,7 +12,7 @@ Computer::~Computer()
 }
 
 template<class T>
-inline const int Computer::arrayLen(const T & array) const
+static int Computer::arrayLen(const T & array)
 {
 	return (sizeof(array) / sizeof(array[0]));
 }
