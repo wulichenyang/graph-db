@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="io\fs\ByteBuffer.h" />
     <ClInclude Include="io\lock\FileLock.h" />
     <ClInclude Include="io\fs\FileChannel.h" />
     <ClInclude Include="io\fs\FileSystemAbstraction.h" />
@@ -130,6 +131,7 @@
     <ClInclude Include="io\fs\StoreChannel.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="io\fs\ByteBuffer.cpp" />
     <ClCompile Include="io\lock\FileLock.cpp" />
     <ClCompile Include="io\fs\FileChannel.cpp" />
     <ClCompile Include="io\fs\FileSystemAbstraction.cpp" />

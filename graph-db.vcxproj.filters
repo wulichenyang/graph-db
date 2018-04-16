@@ -342,6 +342,9 @@
     <ClInclude Include="io\lock\FileLock.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="io\fs\ByteBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kernel\impl\store\format\standard\LabelTokenRecordFormat.cpp">
@@ -657,6 +660,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="io\lock\FileLock.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="io\fs\ByteBuffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

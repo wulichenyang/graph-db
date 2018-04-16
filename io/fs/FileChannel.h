@@ -1,39 +1,43 @@
 #pragma once
 #include <stdio.h>
 #include "../lock/FileLock.h"
+#include <stdexcept>
+#include <iostream>
+#include <unistd.h>
+#include "ByteBuffer.h"
+#define BUF_SIZE 1024
 class FileChannel
 {
 public:
 	FileChannel();
 	~FileChannel();
-	static FileChannel open(char*path, char * mode);
-	bool writeToFile(char nChar[], int length);
-	FILE * getFilePointer();
+	FileChannel open(char *path, char * mode);
+	FILE * getFilePtr();
 
 	// -- Channel operations --
 
 	/**
 	* Reads a sequence of bytes from this channel into the given buffers.
 	*/
-	int read(char *dst);
-	long read(char *dst, int offset, int length);
+	int read(ByteBuffer *dst);
+	long read(ByteBuffer **dst, int offset, int length);
 	/**
 	* Reads a sequence of bytes from this channel into the given buffer,
 	* starting at the given file position.
 	*/
-	int read(char *dst, long position);
+	int read(ByteBuffer *dst, long position);
 
 	/**
 	* Writes a sequence of bytes to this channel from the given buffers.
 	*/
-	int write(char *src);
-	long write(char *src, int offset, int length);
+	int write(ByteBuffer *src);
+	long write(ByteBuffer **src, int offset, int length);
 
 	/**
 	* Writes a sequence of bytes to this channel from the given buffer,
 	* starting at the given file position.
 	*/
-	int write(char *src, long position);
+	int write(ByteBuffer *src, long position);
 
 	// -- Other operations --
 
@@ -85,9 +89,10 @@ public:
 	bool isOpen();
 
 private:
-	FILE * pFile;  //Òþ²ØÊµÏÖÏ¸½Ú
+	//file pointer
+	FILE * pFile;  
 	char * path;
 	char * modeAttribute;
-	bool open = true;
+	bool ifOpen;
 };
 
