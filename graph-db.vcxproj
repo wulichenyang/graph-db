@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="io\lock\FileLock.h" />
+    <ClInclude Include="io\fs\FileChannel.h" />
+    <ClInclude Include="io\fs\FileSystemAbstraction.h" />
     <ClInclude Include="kernel\impl\util\Computer.h" />
     <ClInclude Include="graphdb-api\Closeable.h" />
     <ClInclude Include="kernel\impl\store\id\IdSequence.h" />
@@ -124,8 +127,12 @@
     <ClInclude Include="graphdb-api\Transaction.h" />
     <ClInclude Include="kernel\impl\transaction\state\TransactionRecordState.h" />
     <ClInclude Include="kernel\impl\util\diffsets\SuperDiffSets.h" />
+    <ClInclude Include="io\fs\StoreChannel.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="io\lock\FileLock.cpp" />
+    <ClCompile Include="io\fs\FileChannel.cpp" />
+    <ClCompile Include="io\fs\FileSystemAbstraction.cpp" />
     <ClCompile Include="kernel\impl\util\Computer.cpp" />
     <ClCompile Include="kernel\internal\EmbeddedGraphDatabase.cpp" />
     <ClCompile Include="kernel\internal\GraphDatabaseAPI.cpp" />
@@ -168,6 +175,7 @@
     <ClCompile Include="kernel\impl\util\diffsets\SuperDiffSets.cpp" />
     <ClCompile Include="primitive-collections\primitive\PrimitiveLongArrayQueue.cpp" />
     <ClCompile Include="primitive-collections\primitive\PrimitiveLongArrayQueueIterator.cpp" />
+    <ClCompile Include="io\fs\StoreChannel.cpp" />
     <ClCompile Include="test\main.cpp" />
     <ClCompile Include="storageengine\api\txstate\DiffSetsVisitor.cpp" />
     <ClCompile Include="storageengine\api\Direction.cpp" />

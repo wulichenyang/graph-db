@@ -330,6 +330,18 @@
     <ClInclude Include="kernel\impl\util\Computer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="io\fs\StoreChannel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="io\fs\FileSystemAbstraction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="io\fs\FileChannel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="io\lock\FileLock.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kernel\impl\store\format\standard\LabelTokenRecordFormat.cpp">
@@ -633,6 +645,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="kernel\impl\util\Computer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="io\fs\FileSystemAbstraction.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="io\fs\StoreChannel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="io\fs\FileChannel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="io\lock\FileLock.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
