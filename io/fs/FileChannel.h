@@ -5,7 +5,11 @@
 #include <iostream>
 #include <unistd.h>
 #include "ByteBuffer.h"
+
 #define BUF_SIZE 1024
+
+using namespace std;
+
 class FileChannel
 {
 public:

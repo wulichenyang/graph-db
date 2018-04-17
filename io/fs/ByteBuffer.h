@@ -2,6 +2,9 @@
 #include <stdexcept>
 #include <iostream>
 #include <string.h>
+#include <sstream>
+
+using namespace std;
 
 class ByteBuffer
 {
@@ -10,17 +13,20 @@ public:
 
 	ByteBuffer(int mark, int pos, int lim, int cap,   // package-private
 		char * buf, int offset);
+	ByteBuffer(int mark, int pos, int lim, int cap);
 	~ByteBuffer();
 
 	void allocate(int capacity);
 	char* getBuf() const;
 	void setBuf(char *buf);
+	// append a char[] which has a '\0' into this->buf.
 	void appendToBuf(char buf[]);
 
 	int getCapacity() const;
 	int getPosition() const;
-
-	ByteBuffer *toPosition(int newPosition);
+	int getLimit() const;
+	ByteBuffer *setPosition(int newPosition);
+	ByteBuffer *setLimit(int newLimit);
 
 	/**
 	* Clears this buffer.  The position is set to zero, the limit is set to
@@ -52,10 +58,10 @@ public:
 	*/
 	ByteBuffer *rewind();
 
-	unsigned char get();
-	ByteBuffer *put(const unsigned char &b);
-	unsigned char get(const int &index);
-	ByteBuffer *put(const int &index, const unsigned char &b);
+	char get();
+	ByteBuffer *put(const char &b);
+	char get(const int &index);
+	ByteBuffer *put(const int &index, const char &b);
 	ByteBuffer *get(char *dst, const int &offset, const int &length);
 	ByteBuffer *get(char* dst);
 	ByteBuffer *put(char* src, const int &offset, const int &length);
