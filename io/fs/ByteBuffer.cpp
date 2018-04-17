@@ -1,10 +1,11 @@
 #include "ByteBuffer.h"
 
 
-ByteBuffer::ByteBuffer()
+
+
+ByteBuffer::ByteBuffer(int mark, int pos, int lim, int cap, char * buf, int offset)
 {
 }
-
 
 ByteBuffer::~ByteBuffer()
 {
@@ -38,4 +39,27 @@ char * ByteBuffer::getBuf() const
 void ByteBuffer::appendToBuf(char buf[])
 {
 	strcat(this->buf, buf);
+}
+
+ByteBuffer * ByteBuffer::clear()
+{
+	this->position = 0;
+	this->mark = -1;
+	this->limit = this->capacity;
+	return nullptr;
+}
+
+ByteBuffer * ByteBuffer::flip()
+{
+	this->limit = position;
+	this->position = 0;
+	mark = -1;
+	return this;
+}
+
+ByteBuffer * ByteBuffer::rewind()
+{
+	this->position = 0;
+	this->mark = -1;
+	return this;
 }
