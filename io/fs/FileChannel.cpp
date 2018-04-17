@@ -53,9 +53,15 @@ int FileChannel::read(ByteBuffer * dst)
 	int readSize = size() - position();
 	dst->allocate(readSize);
 
-	char buf[BUF_SIZE];
+	char buf[BUF_SIZE + 1];
+	memset(buf, '\0', sizeof(buf));
+
 	while (!feof(this->getFilePtr())) {
-		fread(buf, 1, BUF_SIZE, this->getFilePtr());
+		int len = fread(buf, 1, BUF_SIZE, this->getFilePtr());
+		// 不满buf_size的部分清除脏数据
+		if (len != BUF_SIZE) {
+			buf[len] = '\0';
+		}
 		dst->appendToBuf(buf);
 	}
 	return readSize;
@@ -70,17 +76,39 @@ int FileChannel::read(ByteBuffer * dst, long position)
 	int readSize = size() - position;
 	dst->allocate(readSize);
 
-	char buf[BUF_SIZE];
+	char buf[BUF_SIZE + 1];
+	memset(buf, '\0', sizeof(buf));
+
 	while (!feof(this->getFilePtr())) {
-		fread(buf, 1, BUF_SIZE, this->getFilePtr());
+		int len = fread(buf, 1, BUF_SIZE, this->getFilePtr());
+		// 不满buf_size的部分清除脏数据
+		if (len != BUF_SIZE) {
+			buf[len] = '\0';
+		}
 		dst->appendToBuf(buf);
 	}
 	return readSize;
 }
 
+// overlap
 int FileChannel::write(ByteBuffer * src)
 {
-	return 0;
+	int size = src->getCapacity();
+	int loop = (size / BUF_SIZE) + 1;
+	int leftBytes = size % BUF_SIZE;
+
+	for (size_t i = 0; i < loop; i++) {
+
+		if (i == loop - 1) {
+			fwrite(src->getBuf() + BUF_SIZE * i, 1, leftBytes, this->getFilePtr());
+			break;
+		}
+		fwrite(src->getBuf() + BUF_SIZE * i, 1, BUF_SIZE, this->getFilePtr());
+	}
+
+	flush();
+
+	return size;
 }
 
 long FileChannel::write(ByteBuffer ** src, int offset, int length)
@@ -88,9 +116,27 @@ long FileChannel::write(ByteBuffer ** src, int offset, int length)
 	return 0;
 }
 
-int FileChannel::write(ByteBuffer * src, long position)
+int FileChannel::write(ByteBuffer * src, long newPosition)
 {
-	return 0;
+
+	position(newPosition);
+
+	int size = src->getCapacity();
+	int loop = (size / BUF_SIZE) + 1;
+	int leftBytes = size % BUF_SIZE;
+
+	for (size_t i = 0; i < loop; i++) {
+
+		if (i == loop - 1) {
+			fwrite(src->getBuf() + BUF_SIZE * i, 1, leftBytes, this->getFilePtr());
+			break;
+		}
+		fwrite(src->getBuf() + BUF_SIZE * i, 1, BUF_SIZE, this->getFilePtr());
+	}
+
+	flush();
+
+	return size;
 }
 
 long FileChannel::position()
@@ -121,6 +167,7 @@ FileChannel FileChannel::truncate(long size)
 
 void FileChannel::flush()
 {
+	fflush(this->getFilePtr());
 }
 
 FileLock FileChannel::tryLock()
@@ -134,6 +181,6 @@ void FileChannel::close()
 
 bool FileChannel::isOpen()
 {
-	return false;
+	return this->ifOpen;
 }
 
