@@ -25,8 +25,29 @@ public:
 	int getCapacity() const;
 	int getPosition() const;
 	int getLimit() const;
+
+	/**
+	* Sets this buffer's position.  If the mark is defined and larger than the
+	* new position then it is discarded.
+	*/
 	ByteBuffer *setPosition(int newPosition);
+
+	/**
+	* Sets this buffer's limit.  If the position is larger than the new limit
+	* then it is set to the new limit.  If the mark is defined and larger than
+	* the new limit then it is discarded.
+	*/
 	ByteBuffer *setLimit(int newLimit);
+
+	/**
+	* Sets this buffer's mark at its position.
+	*/
+	ByteBuffer *setMark();
+
+	/**
+	* Resets this buffer's position to the previously-marked position.
+	*/
+	ByteBuffer *reset();
 
 	/**
 	* Clears this buffer.  The position is set to zero, the limit is set to
@@ -54,10 +75,42 @@ public:
 	*
 	* <p> Invoke this method before a sequence of channel-write or <i>get</i>
 	* operations, assuming that the limit has already been set
-	* appropriately.  For example:
+	* appropriately.  
 	*/
 	ByteBuffer *rewind();
 
+	/**
+	* Returns the number of elements between the current position and the
+	* limit.
+	*
+	* @return  The number of elements remaining in this buffer
+	*/
+	int remaining();
+	/**
+	* Tells whether there are any elements between the current position and
+	* the limit.
+	*
+	* @return  <tt>true</tt> if, and only if, there is at least one element
+	*          remaining in this buffer
+	*/
+	bool hasRemaining();
+
+	int markValue();
+	void truncate();
+	void discardMark();
+
+	// -- Package-private methods for bounds checking, etc. --
+
+	/**
+	* Checks the current position against the limit, throwing a {@link
+	* BufferUnderflowException} if it is not smaller than the limit, and then
+	* increments the position.
+	*
+	* @return  The current position value, before it is incremented
+	*/
+	
+
+	// -- get put methods --
 	char get();
 	ByteBuffer *put(const char &b);
 	char get(const int &index);

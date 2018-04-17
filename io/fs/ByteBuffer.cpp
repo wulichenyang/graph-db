@@ -124,12 +124,27 @@ ByteBuffer * ByteBuffer::setLimit(int newLimit)
 	return this;
 }
 
+ByteBuffer * ByteBuffer::setMark()
+{
+	this->mark = this->position;
+	return this;
+}
+
+ByteBuffer * ByteBuffer::reset()
+{
+	int m = mark;
+	if (m < 0)
+		throw new runtime_error("InvalidMarkException");
+	this->position = m;
+	return this;
+}
+
 ByteBuffer * ByteBuffer::clear()
 {
 	this->position = 0;
 	this->mark = -1;
 	this->limit = this->capacity;
-	return nullptr;
+	return this;
 }
 
 ByteBuffer * ByteBuffer::flip()
@@ -145,4 +160,97 @@ ByteBuffer * ByteBuffer::rewind()
 	this->position = 0;
 	this->mark = -1;
 	return this;
+}
+
+int ByteBuffer::remaining()
+{
+	return this->limit - this->position;
+}
+
+bool ByteBuffer::hasRemaining()
+{
+	return this->position < this->limit;
+}
+
+int ByteBuffer::markValue()
+{
+	return this->mark;
+}
+
+void ByteBuffer::truncate()
+{
+	this->mark = -1;
+	this->position = 0;
+	this->limit = 0;
+	this->capacity = 0;
+}
+
+void ByteBuffer::discardMark()
+{
+	this->mark = -1;
+}
+
+int ByteBuffer::nextGetIndex()
+{
+	if (position >= limit)
+	{
+		throw new overflow_error("BufferOverflowException");
+	}
+	return position++;
+}
+
+int ByteBuffer::nextGetIndex(int nb)
+{
+	if (this->limit - this->position < nb)
+	{
+		throw new overflow_error("BufferOverflowException");
+	}
+	int p = position;
+	position += nb;
+	return p;
+}
+
+int ByteBuffer::nextPutIndex()
+{
+	if (position >= limit)
+	{
+		throw new overflow_error("BufferOverflowException");
+	}
+	return position++;
+}
+
+int ByteBuffer::nextPutIndex(int nb)
+{
+	if (this->limit - this->position < nb)
+	{
+		throw new overflow_error("BufferOverflowException");
+	}
+	int p = position;
+	position += nb;
+	return p;
+}
+
+int ByteBuffer::checkIndex(int i)
+{
+	if ((i < 0) || (i >= limit)) {
+		throw out_of_range("IndexOutOfBoundsException");
+	}
+	return i;
+}
+
+int ByteBuffer::checkIndex(int i, int nb)
+{
+	if ((i < 0) || (nb > limit - i)) 
+	{
+		throw out_of_range("IndexOutOfBoundsException");
+	}
+	return i;
+}
+
+void ByteBuffer::checkBounds(int off, int len, int size)
+{
+	if ((off | len | (off + len) | (size - (off + len))) < 0) 
+	{
+		throw new runtime_error("IndexOutOfBoundsException");
+	}
 }
