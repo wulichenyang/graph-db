@@ -108,7 +108,28 @@ public:
 	*
 	* @return  The current position value, before it is incremented
 	*/
-	
+	int nextGetIndex();
+	int nextGetIndex(int nb);
+
+	/**
+	* Checks the current position against the limit, throwing a {@link
+	* BufferOverflowException} if it is not smaller than the limit, and then
+	* increments the position.
+	*
+	* @return  The current position value, before it is incremented
+	*/
+	int nextPutIndex();
+	int nextPutIndex(int nb);
+
+	/**
+	* Checks the given index against the limit, throwing an {@link
+	* IndexOutOfBoundsException} if it is not smaller than the limit
+	* or is smaller than zero.
+	*/
+	int checkIndex(int i);
+	int checkIndex(int i, int nb);
+
+	static void checkBounds(int off, int len, int size);
 
 	// -- get put methods --
 	char get();
