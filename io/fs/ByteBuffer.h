@@ -132,14 +132,18 @@ public:
 	static void checkBounds(int off, int len, int size);
 
 	// -- get put methods --
+	int ix(const int &i);
 	char get();
-	ByteBuffer *put(const char &b);
+	char get(const int &i);
 	char get(const int &index);
+
+	ByteBuffer *put(const char &b);
 	ByteBuffer *put(const int &index, const char &b);
-	ByteBuffer *get(char *dst, const int &offset, const int &length);
-	ByteBuffer *get(char* dst);
-	ByteBuffer *put(char* src, const int &offset, const int &length);
-	ByteBuffer *put(char* src);
+	ByteBuffer *get(char * dst, const int &offset, const int &length);
+	ByteBuffer *get(char * dst);
+	ByteBuffer *put(char * src, const int &offset, const int &length);
+	ByteBuffer *put(char * src);
+
 	int getInt();
 	ByteBuffer *putInt(const int &value);
 	int getInt(const int &index);
@@ -150,11 +154,17 @@ public:
 	ByteBuffer *putLong(const int &index, const long &value);
 
 private:
+	// store data in bytes
 	char * buf;
+	// mark a index for the position to return
 	int mark = -1;
+	// read or put cursor position
 	int position = 0;
+	// allocated size of this buf
 	int capacity;
+	// read/write limitation index of this buf
 	int limit;
+	// offset from this position or from the beginning
 	int offset;
 };
 

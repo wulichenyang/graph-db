@@ -192,11 +192,11 @@ void ByteBuffer::discardMark()
 
 int ByteBuffer::nextGetIndex()
 {
-	if (position >= limit)
+	if (this->position >= this->limit)
 	{
 		throw new overflow_error("BufferOverflowException");
 	}
-	return position++;
+	return this->position++;
 }
 
 int ByteBuffer::nextGetIndex(int nb)
@@ -205,8 +205,8 @@ int ByteBuffer::nextGetIndex(int nb)
 	{
 		throw new overflow_error("BufferOverflowException");
 	}
-	int p = position;
-	position += nb;
+	int p = this->position;
+	this->position += nb;
 	return p;
 }
 
@@ -253,4 +253,75 @@ void ByteBuffer::checkBounds(int off, int len, int size)
 	{
 		throw new runtime_error("IndexOutOfBoundsException");
 	}
+}
+
+int ByteBuffer::ix(const int &i)
+{
+	return i + this->offset;
+}
+
+long ByteBuffer::getLong()
+{
+	return *(long*)(this->buf + ix(nextGetIndex(8)));
+}
+
+ByteBuffer * ByteBuffer::putLong(const long & value)
+{
+	*(long*)(this->buf + ix(nextPutIndex(8))) = value;
+	return this;
+}
+
+long ByteBuffer::getLong(const int & index)
+{
+	return *(long*)(this->buf + ix(checkIndex(index, 8)));
+}
+
+ByteBuffer * ByteBuffer::putLong(const int & index, const long & value)
+{
+	*(long*)(this->buf + ix(checkIndex(index, 8))) = value;
+	return this;
+}
+
+char ByteBuffer::get()
+{
+	return this->buf[ix(nextGetIndex())];
+}
+
+char ByteBuffer::get(const int & i)
+{
+	return this->buf[ix(nextGetIndex(i))];
+}
+
+ByteBuffer * ByteBuffer::put(const int & index, const char & b)
+{
+	this->buf[ix(nextPutIndex(index))] = b;
+	return this;
+}
+
+ByteBuffer * ByteBuffer::put(const char & b)
+{
+	this->buf[ix(nextPutIndex())] = b;
+	return this;
+}
+
+int ByteBuffer::getInt()
+{
+	return *(int*)(this->buf + ix(nextGetIndex(4)));
+}
+
+ByteBuffer * ByteBuffer::putInt(const int & value)
+{
+	*(int*)(this->buf + ix(nextPutIndex(4))) = value;
+	return this;
+}
+
+int ByteBuffer::getInt(const int & index)
+{
+	return *(int*)(this->buf + ix(checkIndex(index, 4)));
+}
+
+ByteBuffer * ByteBuffer::putInt(const int & index, const int & value)
+{
+	*(int*)(this->buf + ix(checkIndex(index, 4))) = value;
+	return this;
 }
