@@ -23,8 +23,7 @@ FileChannel::~FileChannel()
 
 FileChannel FileChannel::open(char * path, char * mode)
 {
-	FILE *p;
-	fopen_s(&p, path, mode);
+	FILE *p = fopen( path, mode);
 	this->path = (char*)path;
 	this->modeAttribute = (char*)mode;
 	try
@@ -34,7 +33,7 @@ FileChannel FileChannel::open(char * path, char * mode)
 			throw std::invalid_argument("Failed to open file.");
 		}
 	}
-	catch (const std::exception& e)
+	catch (const std::invalid_argument& e)
 	{
 		std::cerr << e.what() << std::endl;
 	}

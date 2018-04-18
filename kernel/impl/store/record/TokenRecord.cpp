@@ -62,7 +62,7 @@ void TokenRecord::addNameRecords(vector<DynamicRecord> records)
 	}
 }
 
-string TokenRecord::toString() const
+string TokenRecord::toString()
 {
 	stringstream ss;
 	ss << simpleName() << "[" << getId() << "," << (inUse() ? "in" : "no")

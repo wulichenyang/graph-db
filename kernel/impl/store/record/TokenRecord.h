@@ -22,7 +22,7 @@ public:
 	vector<DynamicRecord> getNameRecords() const;
 	void addNameRecord(DynamicRecord record);
 	void addNameRecords(vector<DynamicRecord> records);
-	virtual string toString() const;
+	virtual string toString();
 
 protected:
 	virtual string simpleName() const;

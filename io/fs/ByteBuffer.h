@@ -9,8 +9,6 @@ using namespace std;
 class ByteBuffer
 {
 public:
-	int offset;
-
 	ByteBuffer(int mark, int pos, int lim, int cap,   // package-private
 		char * buf, int offset);
 	ByteBuffer(int mark, int pos, int lim, int cap);
@@ -134,7 +132,6 @@ public:
 	// -- get put methods --
 	int ix(const int &i);
 	char get();
-	char get(const int &i);
 	char get(const int &index);
 
 	ByteBuffer *put(const char &b);

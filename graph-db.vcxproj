@@ -1,13 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
+    <ProjectConfiguration Include="Debug|ARM">
       <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
+      <Platform>ARM</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
+    <ProjectConfiguration Include="Release|ARM">
       <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -18,35 +26,76 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{a8874e96-7d70-4f9d-a914-c008002e0fc6}</ProjectGuid>
+    <Keyword>Linux</Keyword>
+    <RootNamespace>graph_db</RootNamespace>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+    <ApplicationType>Linux</ApplicationType>
+    <ApplicationTypeRevision>1.0</ApplicationTypeRevision>
+    <TargetLinuxPlatform>Generic</TargetLinuxPlatform>
+    <LinuxProjectType>{2238F9CD-F817-4ECC-BD14-2524D2669B35}</LinuxProjectType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
   <ItemGroup>
-    <ClInclude Include="io\fs\ByteBuffer.h" />
-    <ClInclude Include="io\lock\FileLock.h" />
-    <ClInclude Include="io\fs\FileChannel.h" />
-    <ClInclude Include="io\fs\FileSystemAbstraction.h" />
-    <ClInclude Include="kernel\impl\util\Computer.h" />
     <ClInclude Include="graphdb-api\Closeable.h" />
-    <ClInclude Include="kernel\impl\store\id\IdSequence.h" />
-    <ClInclude Include="kernel\internal\EmbeddedGraphDatabase.h" />
-    <ClInclude Include="kernel\internal\GraphDatabaseAPI.h" />
-    <ClInclude Include="kernel\impl\util\diffsets\DiffSets.h" />
-    <ClInclude Include="kernel\impl\transaction\command\Command.h" />
     <ClInclude Include="graphdb-api\DynamicLabel.h" />
     <ClInclude Include="graphdb-api\DynamicRelationshipType.h" />
     <ClInclude Include="graphdb-api\Entity.h" />
-    <ClInclude Include="kernel\impl\newapi\AllStoreHolder.h" />
-    <ClInclude Include="kernel\impl\newapi\KernelToken.h" />
-    <ClInclude Include="kernel\impl\factory\GraphDatabaseFacade.h" />
-    <ClInclude Include="kernel\impl\factory\GraphDatabaseFacadeFactory.h" />
-    <ClInclude Include="kernel\impl\core\EmbeddedProxySPI.h" />
+    <ClInclude Include="graphdb-api\Label.h" />
+    <ClInclude Include="graphdb-api\Lock.h" />
+    <ClInclude Include="graphdb-api\Node.h" />
+    <ClInclude Include="graphdb-api\Relationship.h" />
+    <ClInclude Include="graphdb-api\RelationshipType.h" />
+    <ClInclude Include="graphdb-api\Transaction.h" />
+    <ClInclude Include="io\fs\ByteBuffer.h" />
+    <ClInclude Include="io\fs\FileChannel.h" />
+    <ClInclude Include="io\fs\FileSystemAbstraction.h" />
+    <ClInclude Include="io\fs\StoreChannel.h" />
+    <ClInclude Include="io\lock\FileLock.h" />
     <ClInclude Include="kernel\api\DataWriteOperations.h" />
     <ClInclude Include="kernel\api\KernelTransaction.h" />
     <ClInclude Include="kernel\api\ReadOperations.h" />
     <ClInclude Include="kernel\api\Statement.h" />
+    <ClInclude Include="kernel\api\TokenWriteOperations.h" />
+    <ClInclude Include="kernel\api\txstate\TransactionState.h" />
+    <ClInclude Include="kernel\api\txstate\TxStateHolder.h" />
+    <ClInclude Include="kernel\impl\core\EmbeddedProxySPI.h" />
     <ClInclude Include="kernel\impl\core\LabelTokenHolder.h" />
     <ClInclude Include="kernel\impl\core\NodeProxy.h" />
     <ClInclude Include="kernel\impl\core\RelationshipProxy.h" />
     <ClInclude Include="kernel\impl\core\RelationshipTypeToken.h" />
     <ClInclude Include="kernel\impl\core\RelationshipTypeTokenHolder.h" />
+    <ClInclude Include="kernel\impl\core\ThreadToStatementContextBridge.h" />
+    <ClInclude Include="kernel\impl\core\TokenCreator.h" />
+    <ClInclude Include="kernel\impl\core\TokenHolder.h" />
+    <ClInclude Include="kernel\impl\factory\GraphDatabaseFacade.h" />
+    <ClInclude Include="kernel\impl\factory\GraphDatabaseFacadeFactory.h" />
+    <ClInclude Include="kernel\impl\newapi\AllStoreHolder.h" />
+    <ClInclude Include="kernel\impl\newapi\KernelToken.h" />
     <ClInclude Include="kernel\impl\newapi\NodeCursor.h" />
     <ClInclude Include="kernel\impl\newapi\Operations.h" />
     <ClInclude Include="kernel\impl\newapi\Read.h" />
@@ -54,30 +103,31 @@
     <ClInclude Include="kernel\impl\newapi\RelationshipDirection.h" />
     <ClInclude Include="kernel\impl\storageengine\impl\recordstorage\RecordStorageCommandCreationContext.h" />
     <ClInclude Include="kernel\impl\storageengine\impl\recordstorage\RecordStorageEngine.h" />
-    <ClInclude Include="graphdb-api\Label.h" />
-    <ClInclude Include="graphdb-api\Lock.h" />
-    <ClInclude Include="graphdb-api\Node.h" />
-    <ClInclude Include="graphdb-api\RelationshipType.h" />
-    <ClInclude Include="graphdb-api\Relationship.h" />
-    <ClInclude Include="kernel\impl\transaction\state\RecordAccess.h" />
-    <ClInclude Include="kernel\impl\transaction\state\RecordAccessSet.h" />
-    <ClInclude Include="kernel\impl\transaction\state\RecordChanges.h" />
-    <ClInclude Include="kernel\impl\transaction\state\RecordChangeSet.h" />
-    <ClInclude Include="kernel\impl\transaction\state\RelationshipCreator.h" />
-    <ClInclude Include="kernel\impl\transaction\state\RelationshipDeleter.h" />
-    <ClInclude Include="kernel\impl\util\diffsets\PrimitiveLongDiffSets.h" />
-    <ClInclude Include="kernel\impl\util\diffsets\RelationshipDiffSets.h" />
-    <ClInclude Include="primitive-collections\primitive\PrimitiveLongArrayQueue.h" />
-    <ClInclude Include="primitive-collections\primitive\PrimitiveLongArrayQueueIterator.h" />
-    <ClInclude Include="storageengine\api\txstate\DiffSetsVisitor.h" />
-    <ClInclude Include="storageengine\api\Direction.h" />
+    <ClInclude Include="kernel\impl\storageengine\impl\recordstorage\StoreStatement.h" />
+    <ClInclude Include="kernel\impl\storageengine\impl\recordstorage\TransactionToRecordStateVisitor.h" />
     <ClInclude Include="kernel\impl\store\AbstractDynamicStore.h" />
+    <ClInclude Include="kernel\impl\store\CommonAbstractStore.h" />
+    <ClInclude Include="kernel\impl\store\format\BaseOneByteHeaderRecordFormat.h" />
+    <ClInclude Include="kernel\impl\store\format\BaseRecordFormat.h" />
+    <ClInclude Include="kernel\impl\store\format\RecordFormat.h" />
+    <ClInclude Include="kernel\impl\store\format\standard\LabelTokenRecordFormat.h" />
+    <ClInclude Include="kernel\impl\store\format\standard\NodeRecordFormat.h" />
+    <ClInclude Include="kernel\impl\store\format\standard\RelationshipRecordFormat.h" />
+    <ClInclude Include="kernel\impl\store\format\standard\RelationshipTypeTokenRecordFormat.h" />
+    <ClInclude Include="kernel\impl\store\format\standard\TokenRecordFormat.h" />
+    <ClInclude Include="kernel\impl\store\id\FreeIdKeeper.h" />
+    <ClInclude Include="kernel\impl\store\id\IdContainer.h" />
+    <ClInclude Include="kernel\impl\store\id\IdGenerator.h" />
+    <ClInclude Include="kernel\impl\store\id\IdGeneratorFactory.h" />
+    <ClInclude Include="kernel\impl\store\id\IdGeneratorImpl.h" />
+    <ClInclude Include="kernel\impl\store\id\IdSequence.h" />
+    <ClInclude Include="kernel\impl\store\id\IdType.h" />
+    <ClInclude Include="kernel\impl\store\LabelTokenStore.h" />
+    <ClInclude Include="kernel\impl\store\NeoStores.h" />
+    <ClInclude Include="kernel\impl\store\NodeStore.h" />
+    <ClInclude Include="kernel\impl\store\PropertyStore.h" />
     <ClInclude Include="kernel\impl\store\RecordCursor.h" />
-    <ClInclude Include="kernel\impl\store\RelationshipTypeTokenStore.h" />
-    <ClInclude Include="kernel\impl\store\StoreFactory.h" />
-    <ClInclude Include="kernel\impl\store\StoreFile.h" />
-    <ClInclude Include="kernel\impl\store\StoreRecordCursor.h" />
-    <ClInclude Include="kernel\impl\store\StoreType.h" />
+    <ClInclude Include="kernel\impl\store\RecordStore.h" />
     <ClInclude Include="kernel\impl\store\record\AbstractBaseRecord.h" />
     <ClInclude Include="kernel\impl\store\record\DynamicRecord.h" />
     <ClInclude Include="kernel\impl\store\record\LabelTokenRecord.h" />
@@ -87,75 +137,74 @@
     <ClInclude Include="kernel\impl\store\record\Record.h" />
     <ClInclude Include="kernel\impl\store\record\RelationshipRecord.h" />
     <ClInclude Include="kernel\impl\store\record\RelationshipTypeTokenRecord.h" />
-    <ClInclude Include="kernel\impl\store\id\FreeIdKeeper.h" />
-    <ClInclude Include="kernel\impl\store\id\IdContainer.h" />
-    <ClInclude Include="kernel\impl\store\id\IdGenerator.h" />
-    <ClInclude Include="kernel\impl\store\id\IdGeneratorFactory.h" />
-    <ClInclude Include="kernel\impl\store\id\IdGeneratorImpl.h" />
-    <ClInclude Include="kernel\impl\store\id\IdType.h" />
-    <ClInclude Include="kernel\impl\store\format\BaseOneByteHeaderRecordFormat.h" />
-    <ClInclude Include="kernel\impl\store\format\standard\LabelTokenRecordFormat.h" />
-    <ClInclude Include="kernel\impl\store\format\standard\RelationshipRecordFormat.h" />
-    <ClInclude Include="kernel\impl\store\format\standard\RelationshipTypeTokenRecordFormat.h" />
-    <ClInclude Include="kernel\impl\store\format\standard\NodeRecordFormat.h" />
-    <ClInclude Include="kernel\impl\store\format\BaseRecordFormat.h" />
-    <ClInclude Include="kernel\impl\store\format\RecordFormat.h" />
-    <ClInclude Include="kernel\impl\store\LabelTokenStore.h" />
-    <ClInclude Include="kernel\impl\store\PropertyStore.h" />
-    <ClInclude Include="kernel\impl\store\RelationshipStore.h" />
-    <ClInclude Include="kernel\impl\store\NeoStores.h" />
-    <ClInclude Include="kernel\impl\store\NodeStore.h" />
-    <ClInclude Include="kernel\impl\store\CommonAbstractStore.h" />
-    <ClInclude Include="kernel\impl\store\RecordStore.h" />
-    <ClInclude Include="kernel\impl\store\TokenStore.h" />
-    <ClInclude Include="kernel\impl\store\format\standard\TokenRecordFormat.h" />
     <ClInclude Include="kernel\impl\store\record\TokenRecord.h" />
+    <ClInclude Include="kernel\impl\store\RelationshipStore.h" />
+    <ClInclude Include="kernel\impl\store\RelationshipTypeTokenStore.h" />
+    <ClInclude Include="kernel\impl\store\StoreFactory.h" />
+    <ClInclude Include="kernel\impl\store\StoreFile.h" />
+    <ClInclude Include="kernel\impl\store\StoreRecordCursor.h" />
+    <ClInclude Include="kernel\impl\store\StoreType.h" />
+    <ClInclude Include="kernel\impl\store\TokenStore.h" />
+    <ClInclude Include="kernel\impl\transaction\command\Command.h" />
+    <ClInclude Include="kernel\impl\transaction\state\RecordAccess.h" />
+    <ClInclude Include="kernel\impl\transaction\state\RecordAccessSet.h" />
+    <ClInclude Include="kernel\impl\transaction\state\RecordChanges.h" />
+    <ClInclude Include="kernel\impl\transaction\state\RecordChangeSet.h" />
+    <ClInclude Include="kernel\impl\transaction\state\RelationshipCreator.h" />
+    <ClInclude Include="kernel\impl\transaction\state\RelationshipDeleter.h" />
+    <ClInclude Include="kernel\impl\transaction\state\TransactionRecordState.h" />
+    <ClInclude Include="kernel\impl\util\Computer.h" />
+    <ClInclude Include="kernel\impl\util\diffsets\DiffSets.h" />
+    <ClInclude Include="kernel\impl\util\diffsets\PrimitiveLongDiffSets.h" />
+    <ClInclude Include="kernel\impl\util\diffsets\RelationshipDiffSets.h" />
+    <ClInclude Include="kernel\impl\util\diffsets\SuperDiffSets.h" />
+    <ClInclude Include="kernel\internal\EmbeddedGraphDatabase.h" />
+    <ClInclude Include="kernel\internal\GraphDatabaseAPI.h" />
+    <ClInclude Include="primitive-collections\primitive\PrimitiveLongArrayQueue.h" />
+    <ClInclude Include="primitive-collections\primitive\PrimitiveLongArrayQueueIterator.h" />
+    <ClInclude Include="storageengine\api\Direction.h" />
     <ClInclude Include="storageengine\api\StorageCommand.h" />
     <ClInclude Include="storageengine\api\StorageEngine.h" />
     <ClInclude Include="storageengine\api\StorageStatement.h" />
     <ClInclude Include="storageengine\api\StoreReadLayer.h" />
     <ClInclude Include="storageengine\api\Token.h" />
-    <ClInclude Include="storageengine\api\WritableChannel.h" />
+    <ClInclude Include="storageengine\api\txstate\DiffSetsVisitor.h" />
     <ClInclude Include="storageengine\api\txstate\TxStateVisitor.h" />
-    <ClInclude Include="kernel\api\txstate\TransactionState.h" />
-    <ClInclude Include="kernel\api\txstate\TxStateHolder.h" />
-    <ClInclude Include="kernel\api\TokenWriteOperations.h" />
-    <ClInclude Include="kernel\impl\core\ThreadToStatementContextBridge.h" />
-    <ClInclude Include="kernel\impl\core\TokenCreator.h" />
-    <ClInclude Include="kernel\impl\core\TokenHolder.h" />
-    <ClInclude Include="kernel\impl\storageengine\impl\recordstorage\StoreStatement.h" />
-    <ClInclude Include="kernel\impl\storageengine\impl\recordstorage\TransactionToRecordStateVisitor.h" />
-    <ClInclude Include="graphdb-api\Transaction.h" />
-    <ClInclude Include="kernel\impl\transaction\state\TransactionRecordState.h" />
-    <ClInclude Include="kernel\impl\util\diffsets\SuperDiffSets.h" />
-    <ClInclude Include="io\fs\StoreChannel.h" />
+    <ClInclude Include="storageengine\api\WritableChannel.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="io\fs\ByteBuffer.cpp" />
-    <ClCompile Include="io\lock\FileLock.cpp" />
-    <ClCompile Include="io\fs\FileChannel.cpp" />
-    <ClCompile Include="io\fs\FileSystemAbstraction.cpp" />
-    <ClCompile Include="kernel\impl\util\Computer.cpp" />
-    <ClCompile Include="kernel\internal\EmbeddedGraphDatabase.cpp" />
-    <ClCompile Include="kernel\internal\GraphDatabaseAPI.cpp" />
-    <ClCompile Include="kernel\impl\util\diffsets\DiffSets.cpp" />
-    <ClCompile Include="kernel\impl\transaction\command\Command.cpp" />
+    <ClCompile Include="graphdb-api\Closeable.cpp" />
     <ClCompile Include="graphdb-api\DynamicLabel.cpp" />
     <ClCompile Include="graphdb-api\DynamicRelationshipType.cpp" />
-    <ClCompile Include="kernel\impl\newapi\AllStoreHolder.cpp" />
-    <ClCompile Include="kernel\impl\newapi\KernelToken.cpp" />
-    <ClCompile Include="kernel\impl\factory\GraphDatabaseFacade.cpp" />
-    <ClCompile Include="kernel\impl\factory\GraphDatabaseFacadeFactory.cpp" />
-    <ClCompile Include="kernel\impl\core\EmbeddedProxySPI.cpp" />
+    <ClCompile Include="graphdb-api\Label.cpp" />
+    <ClCompile Include="graphdb-api\Lock.cpp" />
+    <ClCompile Include="graphdb-api\RelationshipType.cpp" />
+    <ClCompile Include="graphdb-api\Transaction.cpp" />
+    <ClCompile Include="io\fs\ByteBuffer.cpp" />
+    <ClCompile Include="io\fs\FileChannel.cpp" />
+    <ClCompile Include="io\fs\FileSystemAbstraction.cpp" />
+    <ClCompile Include="io\fs\StoreChannel.cpp" />
+    <ClCompile Include="io\lock\FileLock.cpp" />
     <ClCompile Include="kernel\api\DataWriteOperations.cpp" />
     <ClCompile Include="kernel\api\KernelTransaction.cpp" />
     <ClCompile Include="kernel\api\ReadOperations.cpp" />
     <ClCompile Include="kernel\api\Statement.cpp" />
+    <ClCompile Include="kernel\api\TokenWriteOperations.cpp" />
+    <ClCompile Include="kernel\api\txstate\TransactionState.cpp" />
+    <ClCompile Include="kernel\api\txstate\TxStateHolder.cpp" />
+    <ClCompile Include="kernel\impl\core\EmbeddedProxySPI.cpp" />
     <ClCompile Include="kernel\impl\core\LabelTokenHolder.cpp" />
     <ClCompile Include="kernel\impl\core\NodeProxy.cpp" />
     <ClCompile Include="kernel\impl\core\RelationshipProxy.cpp" />
     <ClCompile Include="kernel\impl\core\RelationshipTypeToken.cpp" />
     <ClCompile Include="kernel\impl\core\RelationshipTypeTokenHolder.cpp" />
+    <ClCompile Include="kernel\impl\core\ThreadToStatementContextBridge.cpp" />
+    <ClCompile Include="kernel\impl\core\TokenCreator.cpp" />
+    <ClCompile Include="kernel\impl\core\TokenHolder.cpp" />
+    <ClCompile Include="kernel\impl\factory\GraphDatabaseFacade.cpp" />
+    <ClCompile Include="kernel\impl\factory\GraphDatabaseFacadeFactory.cpp" />
+    <ClCompile Include="kernel\impl\newapi\AllStoreHolder.cpp" />
+    <ClCompile Include="kernel\impl\newapi\KernelToken.cpp" />
     <ClCompile Include="kernel\impl\newapi\NodeCursor.cpp" />
     <ClCompile Include="kernel\impl\newapi\Operations.cpp" />
     <ClCompile Include="kernel\impl\newapi\Read.cpp" />
@@ -163,31 +212,31 @@
     <ClCompile Include="kernel\impl\newapi\RelationshipDirection.cpp" />
     <ClCompile Include="kernel\impl\storageengine\impl\recordstorage\RecordStorageCommandCreationContext.cpp" />
     <ClCompile Include="kernel\impl\storageengine\impl\recordstorage\RecordStorageEngine.cpp" />
-    <ClCompile Include="graphdb-api\Label.cpp" />
-    <ClCompile Include="graphdb-api\Lock.cpp" />
-    <ClCompile Include="graphdb-api\RelationshipType.cpp" />
-    <ClCompile Include="kernel\impl\transaction\state\RecordAccess.cpp" />
-    <ClCompile Include="kernel\impl\transaction\state\RecordAccessSet.cpp" />
-    <ClCompile Include="kernel\impl\transaction\state\RecordChanges.cpp" />
-    <ClCompile Include="kernel\impl\transaction\state\RecordChangeSet.cpp" />
-    <ClCompile Include="kernel\impl\transaction\state\RelationshipCreator.cpp" />
-    <ClCompile Include="kernel\impl\transaction\state\RelationshipDeleter.cpp" />
-    <ClCompile Include="kernel\impl\util\diffsets\PrimitiveLongDiffSets.cpp" />
-    <ClCompile Include="kernel\impl\util\diffsets\RelationshipDiffSets.cpp" />
-    <ClCompile Include="kernel\impl\util\diffsets\SuperDiffSets.cpp" />
-    <ClCompile Include="primitive-collections\primitive\PrimitiveLongArrayQueue.cpp" />
-    <ClCompile Include="primitive-collections\primitive\PrimitiveLongArrayQueueIterator.cpp" />
-    <ClCompile Include="io\fs\StoreChannel.cpp" />
-    <ClCompile Include="test\main.cpp" />
-    <ClCompile Include="storageengine\api\txstate\DiffSetsVisitor.cpp" />
-    <ClCompile Include="storageengine\api\Direction.cpp" />
+    <ClCompile Include="kernel\impl\storageengine\impl\recordstorage\StoreStatement.cpp" />
+    <ClCompile Include="kernel\impl\storageengine\impl\recordstorage\TransactionToRecordStateVisitor.cpp" />
     <ClCompile Include="kernel\impl\store\AbstractDynamicStore.cpp" />
+    <ClCompile Include="kernel\impl\store\CommonAbstractStore.cpp" />
+    <ClCompile Include="kernel\impl\store\format\BaseOneByteHeaderRecordFormat.cpp" />
+    <ClCompile Include="kernel\impl\store\format\BaseRecordFormat.cpp" />
+    <ClCompile Include="kernel\impl\store\format\RecordFormat.cpp" />
+    <ClCompile Include="kernel\impl\store\format\standard\LabelTokenRecordFormat.cpp" />
+    <ClCompile Include="kernel\impl\store\format\standard\NodeRecordFormat.cpp" />
+    <ClCompile Include="kernel\impl\store\format\standard\RelationshipRecordFormat.cpp" />
+    <ClCompile Include="kernel\impl\store\format\standard\RelationshipTypeTokenRecordFormat.cpp" />
+    <ClCompile Include="kernel\impl\store\format\standard\TokenRecordFormat.cpp" />
+    <ClCompile Include="kernel\impl\store\id\FreeIdKeeper.cpp" />
+    <ClCompile Include="kernel\impl\store\id\IdContainer.cpp" />
+    <ClCompile Include="kernel\impl\store\id\IdGenerator.cpp" />
+    <ClCompile Include="kernel\impl\store\id\IdGeneratorFactory.cpp" />
+    <ClCompile Include="kernel\impl\store\id\IdGeneratorImpl.cpp" />
+    <ClCompile Include="kernel\impl\store\id\IdSequence.cpp" />
+    <ClCompile Include="kernel\impl\store\id\IdType.cpp" />
+    <ClCompile Include="kernel\impl\store\LabelTokenStore.cpp" />
+    <ClCompile Include="kernel\impl\store\NeoStores.cpp" />
+    <ClCompile Include="kernel\impl\store\NodeStore.cpp" />
+    <ClCompile Include="kernel\impl\store\PropertyStore.cpp" />
     <ClCompile Include="kernel\impl\store\RecordCursor.cpp" />
-    <ClCompile Include="kernel\impl\store\RelationshipTypeTokenStore.cpp" />
-    <ClCompile Include="kernel\impl\store\StoreFactory.cpp" />
-    <ClCompile Include="kernel\impl\store\StoreFile.cpp" />
-    <ClCompile Include="kernel\impl\store\StoreRecordCursor.cpp" />
-    <ClCompile Include="kernel\impl\store\StoreType.cpp" />
+    <ClCompile Include="kernel\impl\store\RecordStore.cpp" />
     <ClCompile Include="kernel\impl\store\record\AbstractBaseRecord.cpp" />
     <ClCompile Include="kernel\impl\store\record\DynamicRecord.cpp" />
     <ClCompile Include="kernel\impl\store\record\LabelTokenRecord.cpp" />
@@ -197,144 +246,47 @@
     <ClCompile Include="kernel\impl\store\record\Record.cpp" />
     <ClCompile Include="kernel\impl\store\record\RelationshipRecord.cpp" />
     <ClCompile Include="kernel\impl\store\record\RelationshipTypeTokenRecord.cpp" />
-    <ClCompile Include="kernel\impl\store\id\FreeIdKeeper.cpp" />
-    <ClCompile Include="kernel\impl\store\id\IdContainer.cpp" />
-    <ClCompile Include="kernel\impl\store\id\IdGenerator.cpp" />
-    <ClCompile Include="kernel\impl\store\id\IdGeneratorFactory.cpp" />
-    <ClCompile Include="kernel\impl\store\id\IdGeneratorImpl.cpp" />
-    <ClCompile Include="kernel\impl\store\id\IdType.cpp" />
-    <ClCompile Include="kernel\impl\store\format\BaseOneByteHeaderRecordFormat.cpp" />
-    <ClCompile Include="kernel\impl\store\format\standard\LabelTokenRecordFormat.cpp" />
-    <ClCompile Include="kernel\impl\store\format\standard\RelationshipRecordFormat.cpp" />
-    <ClCompile Include="kernel\impl\store\format\standard\RelationshipTypeTokenRecordFormat.cpp" />
-    <ClCompile Include="kernel\impl\store\format\standard\NodeRecordFormat.cpp" />
-    <ClCompile Include="kernel\impl\store\format\BaseRecordFormat.cpp" />
-    <ClCompile Include="kernel\impl\store\format\RecordFormat.cpp" />
-    <ClCompile Include="kernel\impl\store\LabelTokenStore.cpp" />
-    <ClCompile Include="kernel\impl\store\PropertyStore.cpp" />
-    <ClCompile Include="kernel\impl\store\RelationshipStore.cpp" />
-    <ClCompile Include="kernel\impl\store\NeoStores.cpp" />
-    <ClCompile Include="kernel\impl\store\NodeStore.cpp" />
-    <ClCompile Include="kernel\impl\store\CommonAbstractStore.cpp" />
-    <ClCompile Include="kernel\impl\store\RecordStore.cpp" />
-    <ClCompile Include="kernel\impl\store\TokenStore.cpp" />
-    <ClCompile Include="kernel\impl\store\format\standard\TokenRecordFormat.cpp" />
     <ClCompile Include="kernel\impl\store\record\TokenRecord.cpp" />
+    <ClCompile Include="kernel\impl\store\RelationshipStore.cpp" />
+    <ClCompile Include="kernel\impl\store\RelationshipTypeTokenStore.cpp" />
+    <ClCompile Include="kernel\impl\store\StoreFactory.cpp" />
+    <ClCompile Include="kernel\impl\store\StoreFile.cpp" />
+    <ClCompile Include="kernel\impl\store\StoreRecordCursor.cpp" />
+    <ClCompile Include="kernel\impl\store\StoreType.cpp" />
+    <ClCompile Include="kernel\impl\store\TokenStore.cpp" />
+    <ClCompile Include="kernel\impl\transaction\command\Command.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\RecordAccess.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\RecordAccessSet.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\RecordChanges.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\RecordChangeSet.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\RelationshipCreator.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\RelationshipDeleter.cpp" />
+    <ClCompile Include="kernel\impl\transaction\state\TransactionRecordState.cpp" />
+    <ClCompile Include="kernel\impl\util\Computer.cpp" />
+    <ClCompile Include="kernel\impl\util\diffsets\DiffSets.cpp" />
+    <ClCompile Include="kernel\impl\util\diffsets\PrimitiveLongDiffSets.cpp" />
+    <ClCompile Include="kernel\impl\util\diffsets\RelationshipDiffSets.cpp" />
+    <ClCompile Include="kernel\impl\util\diffsets\SuperDiffSets.cpp" />
+    <ClCompile Include="kernel\internal\EmbeddedGraphDatabase.cpp" />
+    <ClCompile Include="kernel\internal\GraphDatabaseAPI.cpp" />
+    <ClCompile Include="primitive-collections\primitive\PrimitiveLongArrayQueue.cpp" />
+    <ClCompile Include="primitive-collections\primitive\PrimitiveLongArrayQueueIterator.cpp" />
+    <ClCompile Include="storageengine\api\Direction.cpp" />
     <ClCompile Include="storageengine\api\StorageCommand.cpp" />
     <ClCompile Include="storageengine\api\StorageEngine.cpp" />
     <ClCompile Include="storageengine\api\StorageStatement.cpp" />
     <ClCompile Include="storageengine\api\StoreReadLayer.cpp" />
     <ClCompile Include="storageengine\api\Token.cpp" />
-    <ClCompile Include="storageengine\api\WritableChannel.cpp" />
+    <ClCompile Include="storageengine\api\txstate\DiffSetsVisitor.cpp" />
     <ClCompile Include="storageengine\api\txstate\TxStateVisitor.cpp" />
-    <ClCompile Include="kernel\api\txstate\TransactionState.cpp" />
-    <ClCompile Include="kernel\api\txstate\TxStateHolder.cpp" />
-    <ClCompile Include="kernel\api\TokenWriteOperations.cpp" />
-    <ClCompile Include="kernel\impl\core\ThreadToStatementContextBridge.cpp" />
-    <ClCompile Include="kernel\impl\core\TokenCreator.cpp" />
-    <ClCompile Include="kernel\impl\core\TokenHolder.cpp" />
-    <ClCompile Include="kernel\impl\storageengine\impl\recordstorage\StoreStatement.cpp" />
-    <ClCompile Include="kernel\impl\storageengine\impl\recordstorage\TransactionToRecordStateVisitor.cpp" />
-    <ClCompile Include="graphdb-api\Transaction.cpp" />
-    <ClCompile Include="kernel\impl\transaction\state\TransactionRecordState.cpp" />
+    <ClCompile Include="storageengine\api\WritableChannel.cpp" />
+    <ClCompile Include="test\main.cpp" />
   </ItemGroup>
-  <PropertyGroup Label="Globals">
-    <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{0BB42AD9-5283-43D6-B415-2887CAC4EA81}</ProjectGuid>
-    <RootNamespace>graphdb</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-    </ClCompile>
-    <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-    </ClCompile>
-    <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

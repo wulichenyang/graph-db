@@ -45,6 +45,7 @@ ByteBuffer::ByteBuffer(int mark, int pos, int lim, int cap)
 
 ByteBuffer::~ByteBuffer()
 {
+	delete[]this->buf;
 }
 
 void ByteBuffer::allocate(int capacity)
@@ -52,10 +53,10 @@ void ByteBuffer::allocate(int capacity)
 	try
 	{
 		if (capacity < 0) {
-			throw new std::exception("error in buffer allocate.");
+			throw new invalid_argument("error in buffer allocate.");
 		}
 	}
-	catch (const std::exception &e)
+	catch (const std::invalid_argument &e)
 	{
 		std::cerr << e.what() << std::endl;
 	}

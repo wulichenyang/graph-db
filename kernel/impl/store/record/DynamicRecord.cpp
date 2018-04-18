@@ -10,3 +10,8 @@ DynamicRecord::DynamicRecord()
 DynamicRecord::~DynamicRecord()
 {
 }
+
+string DynamicRecord::toString()
+{
+	return string();
+}
