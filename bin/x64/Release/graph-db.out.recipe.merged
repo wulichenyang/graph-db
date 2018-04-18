@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project>
-  <LocalLibPath>G:\graph-db\graph-db\bin\x64\Release\graph-db.out</LocalLibPath>
-  <ObjPaths>G:\graph-db\graph-db\obj\x64\Release\</ObjPaths>
-  <Configuration>Release</Configuration>
-  <Platform>x64</Platform>
-</Project>
