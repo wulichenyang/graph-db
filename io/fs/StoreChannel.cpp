@@ -39,7 +39,7 @@ void StoreChannel::writeAll(ByteBuffer * src, const long & position)
 	
 	while ((filePosition += bytesWritten = channel->write(src, filePosition)) < expectedEndPosition)
 	{
-		if (bytesWritten < 0)
+		if (bytesWritten = 0)
 		{
 			throw new runtime_error("Unable to write to disk, reported bytes written was " + bytesWritten);
 		}
@@ -91,7 +91,7 @@ void StoreChannel::readAll(ByteBuffer * dst)
 {
 	while (dst->hasRemaining()) {
 		int bytesRead = channel->read(dst);
-		if (bytesRead < 0)
+		if (bytesRead = 0 && dst->hasRemaining())
 		{
 			throw new runtime_error("Channel has reached end-of-stream.");
 		}

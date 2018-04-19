@@ -11,14 +11,16 @@ using namespace std;
 class ByteBuffer
 {
 public:
+	ByteBuffer();
 	ByteBuffer(int mark, int pos, int lim, int cap,   // package-private
 		char * buf, int offset);
 	ByteBuffer(int mark, int pos, int lim, int cap);
 	~ByteBuffer();
 
-	void allocate(int capacity);
-	char* readBuf(int nb);
-	char* nextBufSeq(int *realReadSize);
+	ByteBuffer* allocate(int capacity);
+	//char* readBuf(int nb);
+	void nextReadBufSeq(const int &nb);
+	char* nextWriteBufSeq(int *realReadSize);
 	void setBuf(char *buf);
 	// append a char[] which has a '\0' into this->buf.
 	void appendToBuf(char buf[]);

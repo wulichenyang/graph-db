@@ -18,6 +18,7 @@ FileChannel::~FileChannel()
 	if (!(this->pFile == NULL))
 	{
 		fclose(this->pFile);
+		delete[]pFile;
 	}
 }
 
@@ -49,11 +50,9 @@ FILE * FileChannel::getFilePtr()
 
 int FileChannel::read(ByteBuffer * dst)
 {	
-	int realReadSize;
-	char *buf = dst->nextBufSeq(&realReadSize);
-	
-	return fread(buf, 1, realReadSize, this->getFilePtr());
-
+	int len = fread(dst + dst->getPosition(), 1, BUF_SIZE, this->getFilePtr());
+	dst->nextReadBufSeq(len);
+	return len;
 	//int readSize = size() - position();
 	//dst->allocate(readSize);
 
@@ -84,10 +83,9 @@ int FileChannel::read(ByteBuffer * dst, long position)
 {
 	this->position(position);
 
-	int realReadSize;
-	char *buf = dst->nextBufSeq(&realReadSize);
-
-	return fread(buf, 1, realReadSize, this->getFilePtr());
+	int len = fread(dst + dst->getPosition() , 1, BUF_SIZE, this->getFilePtr());
+	dst->nextReadBufSeq(len);
+	return len;
 
 	//int readSize = size() - this->position();
 	//dst->allocate(readSize);
@@ -112,7 +110,7 @@ int FileChannel::read(ByteBuffer * dst, long position)
 int FileChannel::write(ByteBuffer * src)
 {
 	int realWriteSize;
-	char *buf = src->nextBufSeq(&realWriteSize);
+	char *buf = src->nextWriteBufSeq(&realWriteSize);
 	// write BUF_SIZE bytes per time
 	return fwrite(buf, 1, realWriteSize, this->getFilePtr());
 
@@ -149,7 +147,7 @@ int FileChannel::write(ByteBuffer * src, long newPosition)
 	position(newPosition);
 
 	int realWriteSize;
-	char *buf = src->nextBufSeq(&realWriteSize);
+	char *buf = src->nextWriteBufSeq(&realWriteSize);
 	// write BUF_SIZE bytes per time
 	return fwrite(buf, 1, realWriteSize, this->getFilePtr());
 

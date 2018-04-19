@@ -8,6 +8,7 @@ public:
 	StoreChannel();
 	~StoreChannel();
 	StoreChannel(FileChannel * channel);
+	StoreChannel(StoreChannel * channel);
 
 	long write(ByteBuffer ** srcs);
 	long write(ByteBuffer ** srcs, const int &offset, const int &length);

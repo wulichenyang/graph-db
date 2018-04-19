@@ -83,6 +83,14 @@ void PrimitiveLongArrayQueue::ensureCapacity()
 	values = newValues;
 }
 
+void PrimitiveLongArrayQueue::addAll(PrimitiveLongArrayQueue * otherQueue)
+{
+	while (!otherQueue->isEmpty())
+	{
+		enqueue(otherQueue->dequeue());
+	}
+}
+
 void PrimitiveLongArrayQueue::initValues(int capacity)
 {
 	values = new long[capacity];

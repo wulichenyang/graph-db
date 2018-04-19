@@ -3,6 +3,10 @@
 
 
 
+ByteBuffer::ByteBuffer()
+{
+}
+
 ByteBuffer::ByteBuffer(int mark, int pos, int lim, int cap, char * buf, int offset)
 {
 	try
@@ -48,7 +52,7 @@ ByteBuffer::~ByteBuffer()
 	delete[]this->buf;
 }
 
-void ByteBuffer::allocate(int capacity)
+ByteBuffer* ByteBuffer::allocate(int capacity)
 {
 	try
 	{
@@ -62,9 +66,28 @@ void ByteBuffer::allocate(int capacity)
 	}
 	// mark, pos, lim, cap, buf, offset
 	ByteBuffer(-1, 0, capacity, capacity, new char[capacity], 0);
+	return this;
 }
 
-char * ByteBuffer::readBuf(int nb)
+//char * ByteBuffer::readBuf(int nb)
+//{
+//	try
+//	{
+//		if (nb < 0 || nb + this->position > this->limit) {
+//			throw new out_of_range("nb < 0 || nb + this->position > this-> limit");
+//		}
+//	}
+//	catch (const std::out_of_range& e)
+//	{
+//		cout << e.what() << endl;
+//	}
+//
+//	int p = this->position;
+//	this->position += nb;
+//	return (this->buf + p);
+//}
+
+void ByteBuffer::nextReadBufSeq(const int & nb)
 {
 	try
 	{
@@ -76,14 +99,12 @@ char * ByteBuffer::readBuf(int nb)
 	{
 		cout << e.what() << endl;
 	}
-
-	int p = this->position;
+	// update position
 	this->position += nb;
-	return (this->buf + p);
 }
 
 // next bufSize bytes to write
-char * ByteBuffer::nextBufSeq(int * realOffSize)
+char * ByteBuffer::nextWriteBufSeq(int * realOffSize)
 {
 	int p = this->position;
 	if (this->position + BUF_SIZE > this->limit) {

@@ -15,10 +15,11 @@ public:
 	void clear();
 	int size() const;
 	void close();
-	PrimitiveLongArrayQueueIterator iterator();
+	PrimitiveLongArrayQueueIterator *iterator();
 	long dequeue();
 	void enqueue(long value);
 	void ensureCapacity();
+	void addAll(PrimitiveLongArrayQueue *otherQueue);
 
 private:
 	const static int DEFAULT_CAPACITY = 16;
