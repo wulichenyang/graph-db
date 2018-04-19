@@ -11,9 +11,14 @@ StoreChannel::~StoreChannel()
 {
 }
 
-StoreChannel::StoreChannel(const FileChannel & channel)
+StoreChannel::StoreChannel(FileChannel * channel)
 {
 	this->channel = channel;
+}
+
+StoreChannel::StoreChannel(StoreChannel * channel)
+{
+	this->channel = channel->channel;
 }
 
 long StoreChannel::write(ByteBuffer ** srcs)
@@ -28,35 +33,53 @@ long StoreChannel::write(ByteBuffer ** srcs, const int & offset, const int & len
 
 void StoreChannel::writeAll(ByteBuffer * src, const long & position)
 {
-
+	long filePosition = position;
+	long expectedEndPosition = filePosition + src->getLimit() - src->getPosition();
+	int bytesWritten;
+	
+	while ((filePosition += bytesWritten = channel->write(src, filePosition)) < expectedEndPosition)
+	{
+		if (bytesWritten < 0)
+		{
+			throw new runtime_error("Unable to write to disk, reported bytes written was " + bytesWritten);
+		}
+	}
 }
 
 void StoreChannel::writeAll(ByteBuffer * src)
 {
+	long bytesToWrite = src->getLimit() - src->getPosition();
+	int bytesWritten;
+	while ((bytesToWrite -= bytesWritten = write(src)) > 0)
+	{
+		if (bytesWritten < 0)
+		{
+			throw new runtime_error("Unable to write to disk, reported bytes written was " + bytesWritten);
+		}
+	}
+
 }
 
-StoreChannel StoreChannel::truncate(const long & size)
+StoreChannel * StoreChannel::truncate(const long & size)
 {
-	return StoreChannel();
+	this->channel->truncate(size);
+	return this;
 }
 
-StoreChannel StoreChannel::position(const int & newPosition)
+StoreChannel * StoreChannel::position(const int & newPosition)
 {
-	return StoreChannel();
+	this->channel->position(newPosition);
+	return this;
 }
 
 int StoreChannel::read(ByteBuffer * dst, const long & position)
 {
-	return 0;
-}
-
-void StoreChannel::readAll(ByteBuffer * dst)
-{
+	return this->channel->read(dst, position);
 }
 
 int StoreChannel::read(ByteBuffer * dst)
 {
-	return 0;
+	return this->channel->read(dst);
 }
 
 long StoreChannel::read(ByteBuffer ** dsts, const int & offset, const int & length)
@@ -64,19 +87,30 @@ long StoreChannel::read(ByteBuffer ** dsts, const int & offset, const int & leng
 	return 0;
 }
 
+void StoreChannel::readAll(ByteBuffer * dst)
+{
+	while (dst->hasRemaining()) {
+		int bytesRead = channel->read(dst);
+		if (bytesRead < 0)
+		{
+			throw new runtime_error("Channel has reached end-of-stream.");
+		}
+	}
+} 
+
 long StoreChannel::position()
 {
-	return 0;
+	return this->channel->position();
 }
 
-FileLock StoreChannel::tryLock()
+FileLock * StoreChannel::tryLock()
 {
-	return FileLock();
+	return new FileLock();
 }
 
 bool StoreChannel::isOpen()
 {
-	return false;
+	return this->channel->isOpen();
 }
 
 long StoreChannel::read(ByteBuffer ** dsts)
@@ -86,18 +120,20 @@ long StoreChannel::read(ByteBuffer ** dsts)
 
 int StoreChannel::write(ByteBuffer * src)
 {
-	return 0;
+	return this->channel->write(src);
 }
 
 void StoreChannel::close()
 {
+	this->channel->close();
 }
 
 long StoreChannel::size()
 {
-	return 0;
+	return this->channel->size();
 }
 
 void StoreChannel::flush()
 {
+	this->channel->flush();
 }

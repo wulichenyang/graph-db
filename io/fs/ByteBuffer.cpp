@@ -64,14 +64,53 @@ void ByteBuffer::allocate(int capacity)
 	ByteBuffer(-1, 0, capacity, capacity, new char[capacity], 0);
 }
 
-char * ByteBuffer::getBuf() const
+char * ByteBuffer::readBuf(int nb)
 {
-	return this->buf;
+	try
+	{
+		if (nb < 0 || nb + this->position > this->limit) {
+			throw new out_of_range("nb < 0 || nb + this->position > this-> limit");
+		}
+	}
+	catch (const std::out_of_range& e)
+	{
+		cout << e.what() << endl;
+	}
+
+	int p = this->position;
+	this->position += nb;
+	return (this->buf + p);
 }
+
+// next bufSize bytes to write
+char * ByteBuffer::nextBufSeq(int * realOffSize)
+{
+	int p = this->position;
+	if (this->position + BUF_SIZE > this->limit) {
+		*realOffSize = this->limit - this->position;
+		this->position = this->limit;
+		return this->buf + p;
+	}
+	*realOffSize = BUF_SIZE;
+	this->position += BUF_SIZE;
+	return this->buf + p;
+}
+
 
 void ByteBuffer::appendToBuf(char buf[])
 {
 	strcat(this->buf, buf);
+	try {
+		if (this->position + strlen(buf) > this->limit) 
+		{
+			throw new out_of_range("position > limit");
+		}
+	}
+	catch (const out_of_range & e)
+	{
+		cout << e.what() << endl;
+	}
+	this->position += strlen(buf);
 }
 
 int ByteBuffer::getCapacity() const

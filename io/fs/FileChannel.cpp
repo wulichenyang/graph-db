@@ -21,7 +21,7 @@ FileChannel::~FileChannel()
 	}
 }
 
-FileChannel FileChannel::open(char * path, char * mode)
+FileChannel* FileChannel::open(char * path, char * mode)
 {
 	FILE *p = fopen( path, mode);
 	this->path = (char*)path;
@@ -39,7 +39,7 @@ FileChannel FileChannel::open(char * path, char * mode)
 	}
 
 	this->pFile = p;
-	return *this;
+	return this;
 }
 
 FILE * FileChannel::getFilePtr()
@@ -49,21 +49,31 @@ FILE * FileChannel::getFilePtr()
 
 int FileChannel::read(ByteBuffer * dst)
 {	
-	int readSize = size() - position();
-	dst->allocate(readSize);
+	int realReadSize;
+	char *buf = dst->nextBufSeq(&realReadSize);
+	
+	return fread(buf, 1, realReadSize, this->getFilePtr());
 
-	char buf[BUF_SIZE + 1];
-	memset(buf, '\0', sizeof(buf));
+	//int readSize = size() - position();
+	//dst->allocate(readSize);
 
-	while (!feof(this->getFilePtr())) {
-		int len = fread(buf, 1, BUF_SIZE, this->getFilePtr());
-		// 不满buf_size的部分清除脏数据
-		if (len != BUF_SIZE) {
-			buf[len] = '\0';
-		}
-		dst->appendToBuf(buf);
-	}
-	return readSize;
+	//int realReadSize = 0;
+
+	//char buf[BUF_SIZE + 1];
+	//memset(buf, '\0', sizeof(buf));
+	//int len = 0;
+
+	//while (!feof(this->getFilePtr())) {
+	//	len = fread(buf, 1, BUF_SIZE, this->getFilePtr());
+	//	// 不满buf_size的部分清除脏数据
+	//	if (len != BUF_SIZE) {
+	//		buf[len] = '\0';
+	//	}
+
+	//	realReadSize += len;
+	//	dst->appendToBuf(buf);
+	//}
+	//return realReadSize;
 }
 
 long FileChannel::read(ByteBuffer ** dst, int offset, int length)
@@ -72,42 +82,61 @@ long FileChannel::read(ByteBuffer ** dst, int offset, int length)
 
 int FileChannel::read(ByteBuffer * dst, long position)
 {
-	int readSize = size() - position;
-	dst->allocate(readSize);
+	this->position(position);
 
-	char buf[BUF_SIZE + 1];
-	memset(buf, '\0', sizeof(buf));
+	int realReadSize;
+	char *buf = dst->nextBufSeq(&realReadSize);
 
-	while (!feof(this->getFilePtr())) {
-		int len = fread(buf, 1, BUF_SIZE, this->getFilePtr());
-		// 不满buf_size的部分清除脏数据
-		if (len != BUF_SIZE) {
-			buf[len] = '\0';
-		}
-		dst->appendToBuf(buf);
-	}
-	return readSize;
+	return fread(buf, 1, realReadSize, this->getFilePtr());
+
+	//int readSize = size() - this->position();
+	//dst->allocate(readSize);
+	//int realReadSize = 0;
+
+	//char buf[BUF_SIZE + 1];
+	//memset(buf, '\0', sizeof(buf));
+	//int len = 0;
+	//while (!feof(this->getFilePtr())) {
+	//	len = fread(buf, 1, BUF_SIZE, this->getFilePtr());
+	//	// 不满buf_size的部分清除脏数据
+	//	if (len != BUF_SIZE) {
+	//		buf[len] = '\0';
+	//	}
+	//	realReadSize += len;
+	//	dst->appendToBuf(buf);
+	//}
+	//return realReadSize;
 }
 
 // overlap
 int FileChannel::write(ByteBuffer * src)
 {
-	int size = src->getCapacity();
-	int loop = (size / BUF_SIZE) + 1;
-	int leftBytes = size % BUF_SIZE;
+	int realWriteSize;
+	char *buf = src->nextBufSeq(&realWriteSize);
+	// write BUF_SIZE bytes per time
+	return fwrite(buf, 1, realWriteSize, this->getFilePtr());
 
-	for (size_t i = 0; i < loop; i++) {
+	//int size = src->getLimit() - src->getPosition();
+	//int loop = (size / BUF_SIZE) + 1;
+	//int leftBytes = size % BUF_SIZE;
 
-		if (i == loop - 1) {
-			fwrite(src->getBuf() + BUF_SIZE * i, 1, leftBytes, this->getFilePtr());
-			break;
-		}
-		fwrite(src->getBuf() + BUF_SIZE * i, 1, BUF_SIZE, this->getFilePtr());
-	}
+	//int realWriteSize = 0;
+	//int len = 0;
 
-	flush();
+	//for (size_t i = 0; i < loop; i++) {
 
-	return size;
+	//	if (i == loop - 1) {
+	//		len = fwrite(src->readBuf(leftBytes), 1, leftBytes, this->getFilePtr());
+	//		realWriteSize += len;
+	//		break;
+	//	}
+	//	len = fwrite(src->readBuf(BUF_SIZE), 1, BUF_SIZE, this->getFilePtr());
+	//	realWriteSize += len;
+	//}
+
+	//flush();
+
+	//return realWriteSize;
 }
 
 long FileChannel::write(ByteBuffer ** src, int offset, int length)
@@ -117,25 +146,36 @@ long FileChannel::write(ByteBuffer ** src, int offset, int length)
 
 int FileChannel::write(ByteBuffer * src, long newPosition)
 {
-
 	position(newPosition);
 
-	int size = src->getCapacity();
-	int loop = (size / BUF_SIZE) + 1;
-	int leftBytes = size % BUF_SIZE;
+	int realWriteSize;
+	char *buf = src->nextBufSeq(&realWriteSize);
+	// write BUF_SIZE bytes per time
+	return fwrite(buf, 1, realWriteSize, this->getFilePtr());
 
-	for (size_t i = 0; i < loop; i++) {
+	//position(newPosition);
 
-		if (i == loop - 1) {
-			fwrite(src->getBuf() + BUF_SIZE * i, 1, leftBytes, this->getFilePtr());
-			break;
-		}
-		fwrite(src->getBuf() + BUF_SIZE * i, 1, BUF_SIZE, this->getFilePtr());
-	}
+	//int size = src->getLimit() - src->getPosition();
+	//int loop = (size / BUF_SIZE) + 1;
+	//int leftBytes = size % BUF_SIZE;
 
-	flush();
+	//int realWriteSize = 0;
+	//int len = 0;
 
-	return size;
+	//for (size_t i = 0; i < loop; i++) {
+
+	//	if (i == loop - 1) {
+	//		len = fwrite(src->readBuf(leftBytes), 1, leftBytes, this->getFilePtr());
+	//		realWriteSize += len;
+	//		break;
+	//	}
+	//	len = fwrite(src->readBuf(BUF_SIZE), 1, BUF_SIZE, this->getFilePtr());
+	//	realWriteSize += len;
+	//}
+
+	//flush();
+
+	//return realWriteSize;
 }
 
 long FileChannel::position()
@@ -143,10 +183,10 @@ long FileChannel::position()
 	return ftell(this->getFilePtr());
 }
 
-FileChannel FileChannel::position(long newPosition)
+FileChannel * FileChannel::position(long newPosition)
 {
 	fseek(this->getFilePtr(), newPosition, SEEK_SET);
-	return *this;
+	return this;
 }
 
 long FileChannel::size()
@@ -159,9 +199,9 @@ long FileChannel::size()
 	return size;
 }
 
-FileChannel FileChannel::truncate(long size)
+FileChannel * FileChannel::truncate(long size)
 {
-	return FileChannel();
+	return this;
 }
 
 void FileChannel::flush()
@@ -169,9 +209,9 @@ void FileChannel::flush()
 	fflush(this->getFilePtr());
 }
 
-FileLock FileChannel::tryLock()
+FileLock * FileChannel::tryLock()
 {
-	return FileLock();
+	return new FileLock();
 }
 
 void FileChannel::close()

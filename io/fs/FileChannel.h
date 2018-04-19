@@ -15,7 +15,7 @@ class FileChannel
 public:
 	FileChannel();
 	~FileChannel();
-	FileChannel open(char *path, char * mode);
+	FileChannel *open(char *path, char * mode);
 	FILE * getFilePtr();
 
 	// -- Channel operations --
@@ -57,7 +57,7 @@ public:
 	/**
 	* Sets this channel's file position.
 	*/
-	FileChannel position(long newPosition);
+	FileChannel *position(long newPosition);
 
 	/**
 	* Returns the current size of this channel's file.
@@ -74,7 +74,7 @@ public:
 	* position is greater than the given size then it is set to that size.
 	* </p>
 	*/
-	FileChannel truncate(long size);
+	FileChannel *truncate(long size);
 
 	/**
 	* Forces any updates to this channel's file to be written to the storage
@@ -85,7 +85,7 @@ public:
 	/**
 	* Acquires a lock on the given region of this channel's file.
 	*/
-	FileLock tryLock();
+	FileLock *tryLock();
 
 	/**
 	* Closes this channel.

@@ -4,6 +4,8 @@
 #include <string.h>
 #include <sstream>
 
+#define BUF_SIZE 1024
+
 using namespace std;
 
 class ByteBuffer
@@ -15,7 +17,8 @@ public:
 	~ByteBuffer();
 
 	void allocate(int capacity);
-	char* getBuf() const;
+	char* readBuf(int nb);
+	char* nextBufSeq(int *realReadSize);
 	void setBuf(char *buf);
 	// append a char[] which has a '\0' into this->buf.
 	void appendToBuf(char buf[]);

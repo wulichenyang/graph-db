@@ -7,20 +7,20 @@ class StoreChannel
 public:
 	StoreChannel();
 	~StoreChannel();
-	StoreChannel(const FileChannel &channel);
+	StoreChannel(FileChannel * channel);
 
 	long write(ByteBuffer ** srcs);
 	long write(ByteBuffer ** srcs, const int &offset, const int &length);
 	void writeAll(ByteBuffer *src, const long &position);
 	void writeAll(ByteBuffer *src);
-	StoreChannel truncate(const long &size);
-	StoreChannel position(const int &newPosition);
+	StoreChannel *truncate(const long &size);
+	StoreChannel *position(const int &newPosition);
 	int read(ByteBuffer *dst, const long &position);
 	void readAll(ByteBuffer *dst);
 	int read(ByteBuffer *dst);
 	long read(ByteBuffer ** dsts, const int &offset, const int &length);
 	long position();
-	FileLock tryLock();
+	FileLock * tryLock();
 	bool isOpen();
 	long read(ByteBuffer **dsts);
 	int write(ByteBuffer *src);
@@ -29,6 +29,6 @@ public:
 	void flush();
 
 private:
-	FileChannel channel;
+	FileChannel *channel;
 };
 
