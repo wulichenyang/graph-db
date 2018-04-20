@@ -50,9 +50,20 @@ FILE * FileChannel::getFilePtr()
 
 int FileChannel::read(ByteBuffer * dst)
 {	
-	int len = fread(dst + dst->getPosition(), 1, BUF_SIZE, this->getFilePtr());
-	dst->nextReadBufSeq(len);
-	return len;
+	int leftSize = (dst->getCapacity() - dst->getPosition());
+
+	if (leftSize >= BUF_SIZE) {
+		int len = fread(dst + dst->getPosition(), 1, BUF_SIZE, this->getFilePtr());
+		dst->nextReadBufSeq(len);
+		return len;
+	}
+	else
+	{
+		int len = fread(dst + dst->getPosition(), 1, leftSize, this->getFilePtr());
+		dst->nextReadBufSeq(len);
+		return len;
+	}
+
 	//int readSize = size() - position();
 	//dst->allocate(readSize);
 
@@ -83,9 +94,19 @@ int FileChannel::read(ByteBuffer * dst, long position)
 {
 	this->position(position);
 
-	int len = fread(dst + dst->getPosition() , 1, BUF_SIZE, this->getFilePtr());
-	dst->nextReadBufSeq(len);
-	return len;
+	int leftSize = (dst->getCapacity() - dst->getPosition());
+
+	if (leftSize >= BUF_SIZE) {
+		int len = fread(dst + dst->getPosition(), 1, BUF_SIZE, this->getFilePtr());
+		dst->nextReadBufSeq(len);
+		return len;
+	}
+	else
+	{
+		int len = fread(dst + dst->getPosition(), 1, leftSize, this->getFilePtr());
+		dst->nextReadBufSeq(len);
+		return len;
+	}
 
 	//int readSize = size() - this->position();
 	//dst->allocate(readSize);
