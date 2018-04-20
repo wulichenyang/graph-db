@@ -101,6 +101,7 @@ private:
 	* </pre>
 	* and the last part of the file is truncated.
 	*/
+	// 把文件中的沟填满（数据前移）
 	void compact(ByteBuffer *writeBuffer);
 
 };

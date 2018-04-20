@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <unistd.h>
+#include <fstream>
 #include "ByteBuffer.h"
 
 #define BUF_SIZE 1024
@@ -15,9 +16,11 @@ class FileChannel
 public:
 	FileChannel();
 	~FileChannel();
-	FileChannel *open(char *path, char * mode);
+	FileChannel(char *path);
+	FileChannel *open(char *mode);
 	FILE * getFilePtr();
-
+	char * getFileName();
+	char * getMode();
 	// -- Channel operations --
 
 	/**
@@ -88,6 +91,7 @@ public:
 	FileLock *tryLock();
 
 	/**
+	* Í¬²½¹Ø±Õ£¨to be con£©
 	* Closes this channel.
 	*
 	* <p> If the channel has already been closed then this method returns
@@ -98,12 +102,13 @@ public:
 	void close();
 
 	bool isOpen();
+	bool fileExists();
 
 private:
 	//file pointer
 	FILE * pFile;  
 	char * path;
-	char * modeAttribute;
+	char * mode;
 	bool ifOpen;
 };
 

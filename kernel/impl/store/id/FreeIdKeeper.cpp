@@ -9,9 +9,9 @@ FreeIdKeeper::FreeIdKeeper()
 
 FreeIdKeeper::~FreeIdKeeper()
 {
-	delete[]freeIds;
-	delete[]readFromDisk;
-	delete[]channel;
+	delete freeIds;
+	delete readFromDisk;
+	delete channel;
 }
 
 FreeIdKeeper::FreeIdKeeper(StoreChannel * channel, int batchSize, bool aggressiveMode)
@@ -40,11 +40,13 @@ void FreeIdKeeper::freeId(long id)
 	if (freeIds->size() >= batchSize)
 	{
 		// batchSize的Id通过ByteBuffer写入磁盘
-		long endPosition = flushFreeIds(new ByteBuffer() -> allocate(batchSize * ID_ENTRY_SIZE));
+		ByteBuffer * buf = new ByteBuffer()->allocate(batchSize * ID_ENTRY_SIZE);
+		long endPosition = flushFreeIds(buf);
 		if (aggressiveMode)
 		{
 			stackPosition = endPosition;
 		}
+		delete buf;
 	}
 }
 
@@ -219,7 +221,6 @@ void FreeIdKeeper::close()
 	delete writeBuffer;
 }
 
-// 把文件中的沟填满（数据前移）
 void FreeIdKeeper::compact(ByteBuffer * writeBuffer)
 {
 	assert(stackPosition <= initialPosition); // the stack can only be consumed in regular mode

@@ -9,6 +9,7 @@ StoreChannel::StoreChannel()
 
 StoreChannel::~StoreChannel()
 {
+	delete channel;
 }
 
 StoreChannel::StoreChannel(FileChannel * channel)
@@ -66,7 +67,7 @@ StoreChannel * StoreChannel::truncate(const long & size)
 	return this;
 }
 
-StoreChannel * StoreChannel::position(const int & newPosition)
+StoreChannel * StoreChannel::position(const long & newPosition)
 {
 	this->channel->position(newPosition);
 	return this;

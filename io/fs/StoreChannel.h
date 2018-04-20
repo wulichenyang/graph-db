@@ -6,28 +6,28 @@ class StoreChannel
 {
 public:
 	StoreChannel();
-	~StoreChannel();
+	virtual ~StoreChannel();
 	StoreChannel(FileChannel * channel);
 	StoreChannel(StoreChannel * channel);
 
-	long write(ByteBuffer ** srcs);
-	long write(ByteBuffer ** srcs, const int &offset, const int &length);
-	void writeAll(ByteBuffer *src, const long &position);
-	void writeAll(ByteBuffer *src);
-	StoreChannel *truncate(const long &size);
-	StoreChannel *position(const int &newPosition);
-	int read(ByteBuffer *dst, const long &position);
-	void readAll(ByteBuffer *dst);
-	int read(ByteBuffer *dst);
-	long read(ByteBuffer ** dsts, const int &offset, const int &length);
-	long position();
-	FileLock * tryLock();
-	bool isOpen();
-	long read(ByteBuffer **dsts);
-	int write(ByteBuffer *src);
-	void close();
-	long size();
-	void flush();
+	virtual long write(ByteBuffer ** srcs);
+	virtual long write(ByteBuffer ** srcs, const int &offset, const int &length);
+	virtual void writeAll(ByteBuffer *src, const long &position);
+	virtual void writeAll(ByteBuffer *src);
+	virtual StoreChannel *truncate(const long &size);
+	virtual StoreChannel *position(const long &newPosition);
+	virtual int read(ByteBuffer *dst, const long &position);
+	virtual void readAll(ByteBuffer *dst);
+	virtual int read(ByteBuffer *dst);
+	virtual long read(ByteBuffer ** dsts, const int &offset, const int &length);
+	virtual long position();
+	virtual FileLock * tryLock();
+	virtual bool isOpen();
+	virtual long read(ByteBuffer **dsts);
+	virtual int write(ByteBuffer *src);
+	virtual void close();
+	virtual long size();
+	virtual void flush();
 
 private:
 	FileChannel *channel;

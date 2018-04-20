@@ -6,27 +6,31 @@ FileChannel::FileChannel()
 {
 	this->pFile = NULL;
 	this->path = (char*)"";
-	this->modeAttribute = (char*)"";
+	this->mode = (char*)"";
 }
 
 
 FileChannel::~FileChannel()
 {
 	delete[]path;
-	delete[]modeAttribute;
+	delete[]mode;
 
 	if (!(this->pFile == NULL))
 	{
 		fclose(this->pFile);
-		delete[]pFile;
+		delete pFile;
 	}
 }
 
-FileChannel* FileChannel::open(char * path, char * mode)
+FileChannel::FileChannel(char * path)
 {
-	FILE *p = fopen( path, mode);
-	this->path = (char*)path;
-	this->modeAttribute = (char*)mode;
+	this->path = path;
+}
+
+FileChannel* FileChannel::open(char *mode)
+{
+	FILE *p = fopen(path, mode);
+
 	try
 	{
 		if (p == NULL)
@@ -46,6 +50,16 @@ FileChannel* FileChannel::open(char * path, char * mode)
 FILE * FileChannel::getFilePtr()
 {
 	return this->pFile;
+}
+
+char *FileChannel::getFileName()
+{
+	return path;
+}
+
+char * FileChannel::getMode()
+{
+	return mode;
 }
 
 int FileChannel::read(ByteBuffer * dst)
@@ -235,10 +249,23 @@ FileLock * FileChannel::tryLock()
 
 void FileChannel::close()
 {
+	// synchronized
+	if (!ifOpen)
+		return;
+	ifOpen = false;
+	fclose(pFile);
 }
 
 bool FileChannel::isOpen()
 {
 	return this->ifOpen;
+}
+
+bool FileChannel::fileExists()
+{
+	if (ifstream(path)) {
+		return true;
+	}
+	return false;
 }
 
