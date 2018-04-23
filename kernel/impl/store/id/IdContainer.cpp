@@ -194,9 +194,12 @@ IdRange * IdContainer::getReusableIdBatch(const int & maxSize)
 		}
 		tmpIdArr[count++] = id;
 	}
+	if (count != maxSize) 
+	{
+		tmpIdArr[count] = '\0';
+	} 
 
-	long * defragIdArr = count == maxSize ? tmpIdArr : Arrays.copyOfRange(tmpIdArr, 0, count);
-	return new IdRange(defragIdArr, 0, 0);
+	return new IdRange(tmpIdArr, 0, 0);
 }
 
 void IdContainer::freeId(const long & id)
@@ -221,29 +224,81 @@ void IdContainer::markAsSticky()
 
 void IdContainer::markAsCleanlyClosed()
 {
+	// remove sticky
+	ByteBuffer * buffer = new ByteBuffer()->allocate(sizeof(char));
+	buffer->put(CLEAN_GENERATOR)->flip();
+	fileChannel->position(0);
+	fileChannel->writeAll(buffer);
+	delete buffer;
 }
 
 void IdContainer::close(const long & highId)
 {
+	if (!closed)
+	{
+		try
+		{
+			freeIdKeeper->close();
+			writeHeader(highId);
+			markAsCleanlyClosed();
+			closeChannel();
+		}
+		catch (const runtime_error &e)
+		{
+			throw new runtime_error("Unable to close id file");
+		}
+	}
 }
 
 void IdContainer::closeChannel()
 {
+	fileChannel->flush();
+	fileChannel->close();
+	fileChannel = NULL;
+	closed = true;
 }
 
 void IdContainer::writeHeader(const long & highId)
 {
+	ByteBuffer * buffer = new ByteBuffer()->allocate(HEADER_SIZE);
+	buffer->put(STICKY_GENERATOR)->putLong(highId)->flip();
+	fileChannel->position(0);
+	fileChannel->writeAll(buffer);
+	delete buffer;
 }
 
 void IdContainer::remove()
 {
+	if (!closed)
+	{
+		try
+		{
+			closeChannel();
+		}
+		catch (const runtime_error &e)
+		{
+			throw new runtime_error("Unable to close id file ");
+		}
+	}
+
+	file->close();
 }
 
 void IdContainer::readHeader(StoreChannel * channel, ByteBuffer * buffer)
 {
+	try
+	{
+		channel->readAll(buffer);
+	}
+	catch (const runtime_error &e)
+	{
+		throw new runtime_error("Unable to read header, bytes read: ");
+	}
 }
 
 char * IdContainer::getBufferBytes(ByteBuffer * buffer)
 {
-	return nullptr;
+	char* bytes = new char[buffer->getPosition()];
+	buffer->get(bytes);
+	return bytes;
 }
