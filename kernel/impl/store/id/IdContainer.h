@@ -46,6 +46,8 @@ public:
 	long getFreeIdCount();
 	static void createEmptyIdFile(FileChannel *file, const long &highId, const bool &throwIfFileExists);
 	string toString();
+	void close(const long &highId);
+	void remove();
 
 private:
 	// if sticky the id generator wasn't closed properly so it has to be
@@ -64,10 +66,8 @@ private:
 
 	void markAsSticky();
 	void markAsCleanlyClosed();
-	void close(const long &highId);
 	void closeChannel();
 	void writeHeader(const long &highId);
-	void remove();
 	static void readHeader(StoreChannel *channel, ByteBuffer *buffer);
 	static char* getBufferBytes(ByteBuffer *buffer);
 };
