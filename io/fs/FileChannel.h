@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <fstream>
 #include "ByteBuffer.h"
+#include <mutex>
 
 #define BUF_SIZE 1024
 
@@ -110,5 +111,6 @@ private:
 	char * path;
 	char * mode;
 	bool ifOpen;
+	mutex closeMutex;
 };
 

@@ -248,8 +248,9 @@ FileLock * FileChannel::tryLock()
 }
 
 void FileChannel::close()
-{
-	// synchronized
+// synchronized
+{	
+	unique_lock<mutex> lock(closeMutex);
 	if (!ifOpen)
 		return;
 	ifOpen = false;
