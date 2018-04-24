@@ -6,7 +6,7 @@ IdGenerator::IdGenerator()
 {
 }
 
-IdGenerator::IdGenerator(FileChannel * file, int grabSize, long max, bool aggressiveReuse, IdType idType, LongSupplier * highId)
+IdGenerator::IdGenerator(FileChannel * file, int grabSize, long max, bool aggressiveReuse, IdType idType, long highId)
 {
 	this->max = max;
 	this->idType = idType;
@@ -23,7 +23,7 @@ IdGenerator::IdGenerator(FileChannel * file, int grabSize, long max, bool aggres
 	}
 	else
 	{
-		this->highId = highId->getAsLong();
+		this->highId = highId;
 	}
 }
 

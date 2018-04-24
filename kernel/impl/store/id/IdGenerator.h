@@ -14,7 +14,7 @@ public:
 
 	IdGenerator();
 	IdGenerator(FileChannel	*file , int grabSize, long max, bool aggressiveReuse,
-		IdType idType, LongSupplier *highId);
+		IdType idType, long highId);
 	~IdGenerator();
 
 	long nextId();
