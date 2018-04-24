@@ -17,7 +17,7 @@ public:
 protected:
 	set<IdType> getTypesToReuse();
 private:
-	const set<IdType> TYPES_TO_ALLOW_REUSE = {
+	set<IdType> TYPES_TO_ALLOW_REUSE = {
 		IdType::PROPERTY, IdType::STRING_BLOCK,
 		IdType::ARRAY_BLOCK, IdType::NODE_LABELS
 	};
