@@ -1,8 +1,7 @@
 #pragma once
-class Direction
-{
-public:
-	Direction();
-	~Direction();
-};
 
+enum class Direction {
+	OUTGOING,
+	INCOMING,
+	BOTH
+};

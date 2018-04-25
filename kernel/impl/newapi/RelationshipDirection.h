@@ -1,8 +1,8 @@
 #pragma once
-class RelationshipDirection
+enum class RelationshipDirection
 {
-public:
-	RelationshipDirection();
-	~RelationshipDirection();
+	OUTGOING,
+	INCOMING,
+	LOOP,
+	ERROR // NOOP value for state machines et.c.
 };
-
