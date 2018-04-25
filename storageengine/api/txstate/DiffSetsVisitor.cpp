@@ -1,12 +1,12 @@
 #include "DiffSetsVisitor.h"
 
 
-
-DiffSetsVisitor::DiffSetsVisitor()
+template <class T>
+inline DiffSetsVisitor<T>::DiffSetsVisitor()
 {
 }
 
-
-DiffSetsVisitor::~DiffSetsVisitor()
+template <class T>
+inline DiffSetsVisitor<T>::~DiffSetsVisitor()
 {
 }
