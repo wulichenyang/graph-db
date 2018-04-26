@@ -9,21 +9,17 @@ RelationshipChangesForNode::RelationshipChangesForNode()
 
 RelationshipChangesForNode::~RelationshipChangesForNode()
 {
-	size_t len1 = outgoing.size();
-	size_t len2 = incoming.size();
-	size_t len3 = loops.size();
-
-	for (size_t i = 0; i < len1; i++)
+	for (map<int, set<long>*>::iterator it = outgoing.begin(); it != outgoing.end(); it++)
 	{
-		delete outgoing[i];
+		delete it->second;
 	}
-	for (size_t i = 0; i < len2; i++)
+	for (map<int, set<long>*>::iterator it = incoming.begin(); it != incoming.end(); it++)
 	{
-		delete incoming[i];
+		delete it->second;
 	}
-	for (size_t i = 0; i < len3; i++)
+	for (map<int, set<long>*>::iterator it = loops.begin(); it != loops.end(); it++)
 	{
-		delete loops[i];
+		delete it->second;
 	}
 }
 
@@ -134,19 +130,235 @@ bool RelationshipChangesForNode::removeRelationship(long relId, int typeId, Dire
 	return false;
 }
 
+set<long> RelationshipChangesForNode::getRelationships(Direction direction)
+{
+	return getRelationships(direction, nullptr);
+}
+
+set<long> RelationshipChangesForNode::getRelationships(Direction direction, int * types)
+{
+	if (types == nullptr) {
+		switch (direction)
+		{
+		case Direction::INCOMING:
+			return incoming.size() != 0 || loops.size() != 0 ?
+				getAllTypes(incoming, loops) : set<long>();
+		case Direction::OUTGOING:
+			return outgoing.size() != 0 || loops.size() != 0 ?
+				getAllTypes(outgoing, loops) : set<long>();
+		case Direction::BOTH:
+			return outgoing.size() != 0 || incoming.size() != 0 || loops.size() != 0 ?
+				getAllTypes(outgoing, incoming, loops) : set<long>();
+		default:
+			throw new invalid_argument("Unknown direction");
+		}
+	}
+
+	switch (direction)
+	{
+	case Direction::INCOMING:
+			return incoming.size()!= 0 || loops.size()!=0 ? 
+				diffs(types, incoming, loops) : set<long>();
+	case Direction::OUTGOING:
+			return outgoing.size() != 0 || loops.size() != 0 ?
+				diffs(types, outgoing, loops) : set<long>();
+	case Direction::BOTH:
+			return outgoing.size() != 0 || incoming.size() != 0 || loops.size() != 0 ?
+				diffs(types, outgoing, incoming, loops) : set<long>();
+		default:
+			throw new invalid_argument("Unknown direction");
+	}
+}
+
+set<long> RelationshipChangesForNode::getRelationships()
+{
+	set<long> s = set<long>();
+
+	set<long> s1 = primitiveId(incoming);
+	set<long> s2 = primitiveId(outgoing);
+	set<long> s3 = primitiveId(loops);
+
+	s.insert(s1.begin(), s1.end());
+	s.insert(s2.begin(), s2.end());
+	s.insert(s3.begin(), s3.end());
+
+	return s;
+}
+
+set<long> *RelationshipChangesForNode::getRelationships(RelationshipDirection direction, int type)
+{
+	switch (direction)
+	{
+	case RelationshipDirection::INCOMING:
+		return incoming.size() != 0 ? primitiveIdsByType(incoming, type) : new set<long>();
+	case RelationshipDirection::OUTGOING:
+		return outgoing.size() != 0 ? primitiveIdsByType(outgoing, type) : new set<long>();
+	case RelationshipDirection::LOOP:
+		return loops.size() != 0 ? primitiveIdsByType(loops, type) : new set<long>();
+	default:
+		throw new invalid_argument("Unknown direction");
+	}
+}
+
+set<long>* RelationshipChangesForNode::primitiveIdsByType(map<int, set<long>*> _map, int type)
+{
+	map<int, set<long>*>::iterator iter =_map.find(type);
+	if (iter == _map.end()) 
+	{
+		return new set<long>();
+	}
+	return iter->second;
+}
+
+set<long> RelationshipChangesForNode::primitiveId(map<int, set<long>*> m)
+{
+	set<long> s = set<long>();
+	for (map<int, set<long>*>::iterator it = m.begin(); it != m.end(); it++)
+		s.insert(it->second->begin(), it->second->end());
+	return s;
+}
+
+set<long> RelationshipChangesForNode::diffs(int *types, map<int, set<long>*> m1, map<int, set<long>*> m2)
+{
+	set<long> s;
+	set<long> temp;
+	int typeNum = Computer::arrayLen(types);
+
+	for (size_t i = 0; i < typeNum; i++)
+	{
+		temp = *(m1[types[i]]);
+		s.insert(temp.begin(), temp.end());
+
+		temp = *(m2[types[i]]);
+		s.insert(temp.begin(), temp.end());
+	}
+
+	return s;
+}
+
+set<long> RelationshipChangesForNode::diffs(int * types, map<int, set<long>*> m1, map<int, set<long>*> m2, map<int, set<long>*> m3)
+{
+	set<long> s;
+	set<long> temp;
+	int typeNum = Computer::arrayLen(types);
+
+	for (size_t i = 0; i < typeNum; i++)
+	{
+		temp = *(m1[types[i]]);
+		s.insert(temp.begin(), temp.end());
+
+		temp = *(m2[types[i]]);
+		s.insert(temp.begin(), temp.end());
+
+		temp = *(m3[types[i]]);
+		s.insert(temp.begin(), temp.end());
+	}
+
+	return s;
+}
+
+set<long> RelationshipChangesForNode::getAllTypes(map<int, set<long>*> m1, map<int, set<long>*> m2)
+{
+	set<long> s;
+	set<long> temp;
+
+	map<int, set<long>*>::iterator it = m1.begin();
+
+	for (; it != m1.end(); it++) 
+	{
+		temp = *(it->second);
+		s.insert(temp.begin(), temp.end());
+	}
+
+	it = m2.begin();
+
+	for (; it != m2.end(); it++)
+	{
+		temp = *(it->second);
+		s.insert(temp.begin(), temp.end());
+	}
+
+	return s;
+}
+
+set<long> RelationshipChangesForNode::getAllTypes(map<int, set<long>*> m1, map<int, set<long>*> m2, map<int, set<long>*> m3)
+{
+	set<long> s;
+	set<long> temp;
+
+	map<int, set<long>*>::iterator it = m1.begin();
+
+	for (; it != m1.end(); it++)
+	{
+		temp = *(it->second);
+		s.insert(temp.begin(), temp.end());
+	}
+
+	it = m2.begin();
+
+	for (; it != m2.end(); it++)
+	{
+		temp = *(it->second);
+		s.insert(temp.begin(), temp.end());
+	}
+
+	it = m3.begin();
+
+	for (; it != m3.end(); it++)
+	{
+		temp = *(it->second);
+		s.insert(temp.begin(), temp.end());
+	}
+
+	return s;
+}
+
+
+
 void RelationshipChangesForNode::clear()
 {
-	// 清空三个Map表
+	for (map<int, set<long>*>::iterator it = outgoing.begin(); it != outgoing.end(); it++)
+	{
+		delete it->second;
+	}
+	for (map<int, set<long>*>::iterator it = incoming.begin(); it != incoming.end(); it++)
+	{
+		delete it->second;
+	}
+	for (map<int, set<long>*>::iterator it = loops.begin(); it != loops.end(); it++)
+	{
+		delete it->second;
+	}
+
+	// 清空三个Map表和数量
 	if (!outgoing.empty())
 	{
 		outgoing.clear();
+		totalOutgoing = 0;
 	}
 	if (!incoming.empty())
 	{
 		incoming.clear();
+		totalIncoming = 0;
 	}
 	if (!loops.empty())
 	{
 		loops.clear();
+		totalLoops = 0;
 	}
+}
+
+int RelationshipChangesForNode::getTotalOutgoing()
+{
+	return totalOutgoing;
+}
+
+int RelationshipChangesForNode::getTotalIncoming()
+{
+	return totalIncoming;
+}
+
+int RelationshipChangesForNode::getTotalLoops()
+{
+	return totalLoops;
 }
