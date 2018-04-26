@@ -1,16 +1,14 @@
 #include "NodeState.h"
 
-
 NodeState::NodeState()
 {
 }
-
 
 NodeState::~NodeState()
 {
 }
 
-NodeState::NodeState(long id, TxState *state) 
+NodeState::NodeState(long id, TxState *state)
 	:PropertyContainerState(id)
 {
 	this->state = state;
@@ -18,22 +16,37 @@ NodeState::NodeState(long id, TxState *state)
 
 void NodeState::addRelationship(long relId, int typeId, Direction direction)
 {
+	if (!hasAddedRelationships())
+	{
+		relationshipsAdded = RelationshipChangesForNode(state);
+	}
+	relationshipsAdded.addRelationship(relId, typeId, direction);
 }
 
 void NodeState::removeRelationship(long relId, int typeId, Direction direction)
 {
+	if (hasAddedRelationships())
+	{
+		if (relationshipsAdded.removeRelationship(relId, typeId, direction))
+		{
+			return;
+		}
+	}
+	if (!hasRemovedRelationships())
+	{
+		relationshipsRemoved = RelationshipChangesForNode(state);
+	}
+	relationshipsRemoved.addRelationship(relId, typeId, direction);
 }
 
 void NodeState::clear()
 {
 	if (hasAddedRelationships())
 	{
-		// RelationshipChangesForNode
 		relationshipsAdded.clear();
 	}
 	if (hasRemovedRelationships())
 	{
-		// RelationshipChangesForNode
 		relationshipsRemoved.clear();
 	}
 }
@@ -57,23 +70,26 @@ bool NodeState::hasRelationshipChanges()
 	return hasAddedRelationships() || hasRemovedRelationships();
 }
 
-set<long> *NodeState::getAddedRelationships(Direction direction)
+set<long> NodeState::getAddedRelationships(Direction direction)
 {
-	return hasAddedRelationships() ? relationshipsAdded.getRelationships(direction) : 
+	return hasAddedRelationships() ? relationshipsAdded.getRelationships(direction):
+		 set<long>();
+}
+
+set<long> NodeState::getAddedRelationships(Direction direction, int * relTypes)
+{
+	return hasAddedRelationships() ? relationshipsAdded.getRelationships(direction, relTypes) :
+		set<long>();
+}
+
+set<long> NodeState::getAddedRelationships()
+{
+	return hasAddedRelationships() ? relationshipsAdded.getRelationships() :
+		set<long>();
+}
+
+set<long>* NodeState::getAddedRelationships(RelationshipDirection direction, int relType)
+{
+	return hasAddedRelationships() ? relationshipsAdded.getRelationships(direction, relType) :
 		new set<long>();
-}
-
-set<long> *NodeState::getAddedRelationships(Direction direction, int * relTypes)
-{
-	return new set<long>();
-}
-
-set<long> *NodeState::getAddedRelationships()
-{
-	return new set<long>();
-}
-
-set<long> *NodeState::getAddedRelationships(RelationshipDirection direction, int relType)
-{
-	return new set<long>();
 }

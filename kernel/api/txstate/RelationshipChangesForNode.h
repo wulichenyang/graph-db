@@ -3,6 +3,7 @@
 #include <set>
 #include "../../../storageengine/api/Direction.h"
 #include "../../impl/newapi/RelationshipDirection.h"
+#include "../txstate/TxState.h"
 #include <stdexcept>
 #include <stdarg.h>
 #include <vector>
@@ -15,10 +16,12 @@ class RelationshipChangesForNode
 {
 public:
 	RelationshipChangesForNode();
+	RelationshipChangesForNode(TxState *state);
 	~RelationshipChangesForNode();
 	map<int, set<long>*> getTypeToRelMapForDirection(Direction direction);
 	void addRelationship(long relId, int typeId, Direction direction);
 	bool removeRelationship(long relId, int typeId, Direction direction);
+
 	set<long> getRelationships(Direction direction);
 	set<long> getRelationships(Direction direction, int *types);
 	set<long> getRelationships();
@@ -51,7 +54,8 @@ private:
 	map<int, set<long>*> getIncoming();
 	map<int, set<long>*> getLoops();
 	map<int, set<long>*> getTypeToRelMapForDirection(Direction direction);
-
+	
+	TxState *state;
 
 };
 

@@ -6,6 +6,11 @@ RelationshipChangesForNode::RelationshipChangesForNode()
 {
 }
 
+RelationshipChangesForNode::RelationshipChangesForNode(TxState * state)
+{
+	this->state = state;
+}
+
 
 RelationshipChangesForNode::~RelationshipChangesForNode()
 {
