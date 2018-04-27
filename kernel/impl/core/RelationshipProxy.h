@@ -4,6 +4,7 @@
 #include "../../../graphdb-api/RelationshipType.h"
 #include "../core/EmbeddedProxySPI.h"
 #include <vector>
+#include "NodeProxy.h"
 
 #define NO_ID -1;
 
@@ -19,8 +20,8 @@ public:
 	long sourceId() const;
 	long targetId() const;
 	void remove() override;
-	Node *getStartNode() const;
-	Node *getEndNode() const;
+	NodeProxy getStartNode() const;
+	NodeProxy getEndNode() const;
 	RelationshipType getType() const override;
 	bool isType(RelationshipType type) const override;
 	long getStartNodeId() const override;

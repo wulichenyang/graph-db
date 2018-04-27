@@ -35,14 +35,14 @@ void RelationshipProxy::remove()
 {
 }
 
-Node * RelationshipProxy::getStartNode() const
+NodeProxy RelationshipProxy::getStartNode() const
 {
-	return nullptr;
+	return NodeProxy();
 }
 
-Node * RelationshipProxy::getEndNode() const
+NodeProxy RelationshipProxy::getEndNode() const
 {
-	return nullptr;
+	return NodeProxy();
 }
 
 RelationshipType RelationshipProxy::getType() const

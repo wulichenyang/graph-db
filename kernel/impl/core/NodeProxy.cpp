@@ -1,6 +1,9 @@
 #include "NodeProxy.h"
 
 
+NodeProxy::NodeProxy() {
+
+}
 
 NodeProxy::NodeProxy(EmbeddedProxySPI * spi, const long & nodeId)
 {
@@ -19,19 +22,14 @@ void NodeProxy::remove()
 {
 }
 
-vector<Relationship*> NodeProxy::getRelationships() const
+vector<Relationship> NodeProxy::getRelationships(const RelationshipType & type) const
 {
-	return vector<Relationship*>();
+	return vector<Relationship>();
 }
 
-vector<Relationship*> NodeProxy::getRelationships(RelationshipType type) const
+RelationshipProxy NodeProxy::createRelationshipTo(const NodeProxy & otherNode, const RelationshipType & type)
 {
-	return vector<Relationship*>();
-}
-
-Relationship * NodeProxy::createRelationshipTo(Node * otherNode, RelationshipType type)
-{
-	return nullptr;
+	return RelationshipProxy();
 }
 
 string NodeProxy::toString() const
