@@ -14,6 +14,8 @@ public:
 	virtual void setCreated() final;
 	virtual bool isCreated() const final;
 
+	const static int NO_ID = -1;
+
 protected:
 	long id;
 	bool inUseFlag;

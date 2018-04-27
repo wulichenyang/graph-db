@@ -51,7 +51,7 @@ public:
 	map<string, T> getAllProperties();
 
 	template <typename T>
-	getProperty(string key);
+	T getProperty(string key);
 
 	bool hasProperty(string key);
 	RelationshipProxy createRelationshipTo(const NodeProxy &otherNode, const RelationshipType &type);
@@ -62,7 +62,7 @@ public:
 	vector<RelationshipType> getRelationshipTypes();
 	int *relTypeIds(RelationshipType types[], Statement statement);
 	RelationshipType convertToRelationshipType(Statement statement, const int &relTypeId);
-	string toString() const;
+	string toString();
 private:
 	EmbeddedProxySPI *spi;
 	long nodeId;
