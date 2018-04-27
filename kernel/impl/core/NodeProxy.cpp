@@ -22,9 +22,14 @@ void NodeProxy::remove()
 {
 }
 
-vector<Relationship> NodeProxy::getRelationships(const RelationshipType & type) const
+vector<RelationshipProxy> NodeProxy::getRelationships() const
 {
-	return vector<Relationship>();
+	return vector<RelationshipProxy>();
+}
+
+vector<RelationshipProxy> NodeProxy::getRelationships(const RelationshipType & type) const
+{
+	return vector<RelationshipProxy>();
 }
 
 RelationshipProxy NodeProxy::createRelationshipTo(const NodeProxy & otherNode, const RelationshipType & type)
