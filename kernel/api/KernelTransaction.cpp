@@ -1,7 +1,6 @@
 #include "KernelTransaction.h"
 
 
-
 KernelTransaction::KernelTransaction()
 {
 }

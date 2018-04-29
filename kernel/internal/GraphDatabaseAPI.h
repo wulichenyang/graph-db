@@ -1,5 +1,7 @@
 #pragma once
-class GraphDatabaseAPI
+#include "../../graphdb-api/GraphDatabaseService.h"
+
+class GraphDatabaseAPI:public GraphDatabaseService
 {
 public:
 	GraphDatabaseAPI();
