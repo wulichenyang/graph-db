@@ -22,6 +22,10 @@ FileChannel::~FileChannel()
 	}
 }
 
+FileChannel::FileChannel(char * storeDir, const char * fileName)
+{
+}
+
 FileChannel::FileChannel(char * path)
 {
 	this->path = path;

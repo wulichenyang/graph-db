@@ -17,8 +17,10 @@ class FileChannel
 public:
 	FileChannel();
 	~FileChannel();
+	FileChannel(char *storeDir, const char *fileName);
 	FileChannel(char *path);
 	FileChannel *open(char *mode);
+	char * getParentFile();
 	FILE * getFilePtr();
 	char * getFileName();
 	char * getMode();
@@ -111,6 +113,7 @@ private:
 	char * path;
 	char * mode;
 	bool ifOpen;
+	char *storeDir;
 	mutex closeMutex;
 };
 

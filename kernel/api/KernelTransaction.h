@@ -35,6 +35,7 @@ public:
 	bool hasDataChanges();
 	TokenWrite *tokenWrite();
 	TokenRead *tokenRead();
+	Operations *dataWrite();
 
 
 private:
@@ -68,7 +69,6 @@ private:
 	long commit();
 	void rollback();
 
-	Operations *dataWrite();
 
 	void afterCommit(const long &txId);
 	void afterRollback();
