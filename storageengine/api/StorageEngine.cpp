@@ -10,6 +10,20 @@ StorageEngine::StorageEngine(char * storeDir, PropertyKeyTokenHolder *propertyKe
 
 	StoreFactory *factory = new StoreFactory(storeDir, idGeneratorFactory, file);
 	neoStores = factory->openAllNeoStores(true);
+
+	try
+	{
+		cacheAccess = new CacheAccess(propertyKeyTokenHolder, relationshipTypeTokens, labelTokens);
+		storeLayer = new StoreReadLayer(
+			propertyKeyTokenHolder, labelTokens, relationshipTypeTokens,
+			neoStores);
+		recordIdBatchSize = 
+	}
+	catch (const std::exception& e)
+	{
+		neoStores->close();
+		throw e;
+	}
 }
 
 StorageEngine::StorageEngine()
