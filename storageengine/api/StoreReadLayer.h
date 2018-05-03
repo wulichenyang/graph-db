@@ -6,7 +6,7 @@
 #include "../../kernel/impl/core/RelationshipTypeTokenHolder.h"
 #include "../../kernel/impl/store/NodeStore.h"
 #include "../../kernel/impl/store/NeoStores.h"
-
+#include "../../storageengine/api/StorageStatement.h"
 
 class StoreReadLayer
 {
@@ -15,6 +15,8 @@ public:
 	~StoreReadLayer();
 	StoreReadLayer(PropertyKeyTokenHolder *propertyKeyTokenHolder, LabelTokenHolder *labelTokenHolder,
 		RelationshipTypeTokenHolder *relationshipTokenHolder, NeoStores *neoStores);
+	StorageStatement *newStatement();
+
 
 private:
 	PropertyKeyTokenHolder *propertyKeyTokenHolder;

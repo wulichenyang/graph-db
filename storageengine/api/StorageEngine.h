@@ -27,9 +27,10 @@ public:
 
 	StorageEngine();
 	~StorageEngine();
+	StoreReadLayer *storeReadLayer();
 
 private:
-	StoreReadLayer storeLayer;
+	StoreReadLayer *storeLayer;
 	CacheAccess *cacheAccess;
 	StoreReadLayer *storeLayer;
 	NeoStores *neoStores;

@@ -1,5 +1,5 @@
 #pragma once
-enum class IdType {
+enum IdType {
 	NODE,
 	RELATIONSHIP,
 	PROPERTY,

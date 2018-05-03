@@ -12,3 +12,25 @@ TxState::TxState()
 TxState::~TxState()
 {
 }
+
+void TxState::nodeDoCreate(long nodeId)
+{
+	nodes().add(nodeId);
+	dataChanged();
+}
+
+void TxState::changed()
+{
+	this->hasChanges = true;
+}
+
+void TxState::dataChanged()
+{
+	changed();
+	this->hasDataChanges = true;
+}
+
+RemovalsCountingDiffSets TxState::nodes()
+{
+	return RemovalsCountingDiffSets();
+}

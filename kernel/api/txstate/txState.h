@@ -16,7 +16,10 @@ class TxState
 public:
 	TxState();
 	~TxState();
+	void nodeDoCreate(long nodeId);
 	void accept(TxStateVisitor visitor);
+	void changed();
+	void dataChanged();
 
 private:
 	static LabelState LABEL_STATE;
@@ -38,5 +41,8 @@ private:
 
 	bool hasChanges;
 	bool hasDataChanges;
+
+	RemovalsCountingDiffSets nodes();
+
 };
 

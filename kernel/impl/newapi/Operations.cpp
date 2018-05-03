@@ -21,5 +21,8 @@ Operations::~Operations()
 
 long Operations::nodeCreate()
 {
-	return 0;
+	ktx->assertOpen();
+	long nodeId = statement->reserveNode();
+	ktx->txState()->nodeDoCreate(nodeId);
+	return nodeId;
 }

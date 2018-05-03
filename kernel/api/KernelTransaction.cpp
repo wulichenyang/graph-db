@@ -10,8 +10,7 @@ KernelTransaction::KernelTransaction(StorageEngine * storageEngine, KernelToken 
 	this->storeLayer = storageEngine->storeReadLayer();
 	this->storageEngine = storageEngine;
 	this->storageStatement = storeLayer->newStatement();
-	this->currentStatement = new KernelStatement(this, this, storageStatement,
-		procedures, accessCapability, lockTracer, statementOperations, new ClockContext(clock));
+	//this->currentStatement = new KernelStatement(this, storageStatement, statementOperations);
 	// 初始化各种Token Holder，各种Store，读磁盘已经存储的数据
 	AllStoreHolder *allStoreHolder =
 		new AllStoreHolder(storageEngine, storageStatement, this);
@@ -20,7 +19,6 @@ KernelTransaction::KernelTransaction(StorageEngine * storageEngine, KernelToken 
 			allStoreHolder,
 			storageStatement,
 			this, token);
-
 }
 
 

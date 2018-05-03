@@ -15,8 +15,7 @@ GraphDatabaseFacade::~GraphDatabaseFacade()
 NodeProxy *GraphDatabaseFacade::createNode()
 {
 	KernelTransaction *transaction = getTx();
-
-	return new NodeProxy(transaction->dataWrite().nodeCreate());
+	return newNodeProxy(transaction->dataWrite()->nodeCreate());
 }
 
 KernelTransaction *GraphDatabaseFacade::beginTx()
@@ -28,4 +27,9 @@ KernelTransaction *GraphDatabaseFacade::beginTx()
 KernelTransaction * GraphDatabaseFacade::getTx()
 {
 	return this->tx;
+}
+
+NodeProxy * GraphDatabaseFacade::newNodeProxy(long nodeId)
+{
+	return new NodeProxy(this, nodeId);
 }

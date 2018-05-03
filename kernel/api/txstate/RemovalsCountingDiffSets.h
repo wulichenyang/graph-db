@@ -11,5 +11,7 @@ public:
 private:
 	set<long> removedFromAdded;
 	bool wasRemoved(long id);
+
+
 };
 

@@ -17,7 +17,7 @@ StorageEngine::StorageEngine(char * storeDir, PropertyKeyTokenHolder *propertyKe
 		storeLayer = new StoreReadLayer(
 			propertyKeyTokenHolder, labelTokens, relationshipTypeTokens,
 			neoStores);
-		recordIdBatchSize = 
+		recordIdBatchSize = 20;
 	}
 	catch (const std::exception& e)
 	{
@@ -33,4 +33,9 @@ StorageEngine::StorageEngine()
 
 StorageEngine::~StorageEngine()
 {
+}
+
+StoreReadLayer * StorageEngine::storeReadLayer()
+{
+	return this->storeLayer;
 }

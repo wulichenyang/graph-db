@@ -19,3 +19,8 @@ StoreReadLayer::StoreReadLayer(PropertyKeyTokenHolder * propertyKeyTokenHolder, 
 	this->nodeStore = neoStores->getNodeStore();
 	this->relationshipStore = neoStores->getRelationshipStore();
 }
+
+StorageStatement *StoreReadLayer::newStatement()
+{
+	return new StorageStatement();
+}
