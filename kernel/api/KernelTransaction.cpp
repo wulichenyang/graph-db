@@ -30,3 +30,8 @@ Operations * KernelTransaction::dataWrite()
 {
 	return this->operations;
 }
+
+bool KernelTransaction::hasTxStateWithChanges()
+{
+	return txState->ifHasChanges();
+}

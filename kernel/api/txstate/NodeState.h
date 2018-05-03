@@ -21,10 +21,14 @@ public:
 	bool hasRemovedRelationships();
 	//PrimitiveIntSet relationshipTypes();
 	bool hasRelationshipChanges();
+
+	SuperDiffSets<int> getLabelDiffSets();
+
 	set<long> getAddedRelationships(Direction direction);
 	set<long> getAddedRelationships(Direction direction, int *relTypes);
 	set<long> getAddedRelationships();
 	set<long>* getAddedRelationships(RelationshipDirection direction, int relType);
+
 private:
 	SuperDiffSets<int> labelDiffSets;
 	RelationshipChangesForNode relationshipsAdded;

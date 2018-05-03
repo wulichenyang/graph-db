@@ -37,7 +37,6 @@ public:
 	TokenRead *tokenRead();
 	Operations *dataWrite();
 
-
 private:
 	const static long NOT_COMMITTED_TRANSACTION_ID = -1;
 	const static long NOT_COMMITTED_TRANSACTION_COMMIT_TIME = -1;

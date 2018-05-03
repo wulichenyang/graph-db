@@ -20,7 +20,9 @@ public:
 	void accept(TxStateVisitor visitor);
 	void changed();
 	void dataChanged();
-
+	bool ifHasChanges();
+	void nodeDoDelete(long nodeId);
+	SuperDiffSets<int> getLabelStateNodeDiffSets(long nodeId);
 private:
 	static LabelState LABEL_STATE;
 	static NodeState NODE_STATE;

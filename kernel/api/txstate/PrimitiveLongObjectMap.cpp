@@ -26,6 +26,12 @@ inline bool PrimitiveLongObjectMap<VALUE>::containsKey(long key)
 }
 
 template<class VALUE>
+bool PrimitiveLongObjectMap<VALUE>::isEmpty()
+{
+	return this->l_v_map.empty();
+}
+
+template<class VALUE>
 inline VALUE PrimitiveLongObjectMap<VALUE>::get(long key)
 {
 	return l_v_map[key];

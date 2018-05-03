@@ -70,6 +70,11 @@ bool NodeState::hasRelationshipChanges()
 	return hasAddedRelationships() || hasRemovedRelationships();
 }
 
+SuperDiffSets<int> NodeState::getLabelDiffSets()
+{
+	return this->labelDiffSets;
+}
+
 set<long> NodeState::getAddedRelationships(Direction direction)
 {
 	return hasAddedRelationships() ? relationshipsAdded.getRelationships(direction):
