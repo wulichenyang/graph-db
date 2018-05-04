@@ -24,3 +24,8 @@ StorageStatement *StoreReadLayer::newStatement()
 {
 	return new StorageStatement();
 }
+
+bool StoreReadLayer::nodeExists(long id)
+{
+	return nodeStore->isInUse(id);
+}

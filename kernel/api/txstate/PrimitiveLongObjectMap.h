@@ -10,11 +10,12 @@ public:
 	PrimitiveLongObjectMap();
 	~PrimitiveLongObjectMap();
 
-	VALUE put(long key, VALUE value);
+	VALUE *put(long key, VALUE *value);
 	bool containsKey(long key);
 	bool isEmpty();
-	VALUE get(long key);
-	VALUE remove(long key);
+	VALUE *get(long key);
+	VALUE *remove(long key);
+	VALUE *getOrCreate(long key);
 private:
-	map<long, VALUE> l_v_map;
+	map<long, VALUE*> l_v_map;
 };

@@ -8,9 +8,10 @@ public:
 	RemovalsCountingDiffSets(set<long> addedElements, set<long> removedElements);
 	~RemovalsCountingDiffSets();
 	bool remove(long elem);
+	bool wasRemoved(long id);
+
 private:
 	set<long> removedFromAdded;
-	bool wasRemoved(long id);
 
 
 };

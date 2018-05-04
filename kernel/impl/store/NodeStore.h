@@ -1,5 +1,8 @@
 #pragma once
-class NodeStore
+#include "CommonAbstractStore.h"
+#include "record\NodeRecord.h"
+
+class NodeStore:public CommonAbstractStore<NodeRecord>
 {
 public:
 	NodeStore();

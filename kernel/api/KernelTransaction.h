@@ -26,7 +26,7 @@ public:
 	bool isOpen();
 	KernelStatement *acquireStatement();
 	void upgradeToDataWrites();
-	TxState *txState();
+	TxState *getTxState();
 	bool hasTxStateWithChanges();
 	void assertOpen();
 	bool hasChanges();

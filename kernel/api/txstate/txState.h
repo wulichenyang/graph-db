@@ -17,12 +17,17 @@ public:
 	TxState();
 	~TxState();
 	void nodeDoCreate(long nodeId);
+	RemovalsCountingDiffSets getNodes();
+	RemovalsCountingDiffSets getRelationships();
 	void accept(TxStateVisitor visitor);
 	void changed();
 	void dataChanged();
 	bool ifHasChanges();
 	void nodeDoDelete(long nodeId);
 	SuperDiffSets<int> getLabelStateNodeDiffSets(long nodeId);
+	bool nodeIsDeletedInThisTx(long nodeId);
+	bool nodeIsAddedInThisTx(long nodeId);
+	void relationshipDoCreate(long id, int relationshipTypeId, long startNodeId, long endNodeId);
 private:
 	static LabelState LABEL_STATE;
 	static NodeState NODE_STATE;
@@ -38,13 +43,16 @@ private:
 	PrimitiveIntObjectMap<string> createdPropertyKeyTokens;
 	PrimitiveIntObjectMap<string> createdRelationshipTypeTokens;
 
+	NodeState *getOrCreateNodeState(long nodeId);
+	RelationshipState *getOrCreateRelationshipState(long relationshipId);
+
+
 	RemovalsCountingDiffSets nodes;
 	RemovalsCountingDiffSets relationships;
 
 	bool hasChanges;
 	bool hasDataChanges;
 
-	RemovalsCountingDiffSets nodes();
 
 };
 

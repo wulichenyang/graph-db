@@ -17,3 +17,8 @@ AllStoreHolder::AllStoreHolder(StorageEngine * engine, StorageStatement * statem
 AllStoreHolder::~AllStoreHolder()
 {
 }
+
+bool AllStoreHolder::nodeExistsInStore(long id)
+{
+	return storeReadLayer->nodeExists(id);
+}

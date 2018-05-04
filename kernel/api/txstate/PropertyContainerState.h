@@ -16,5 +16,4 @@ private:
 	//private VersionedHashMap<int, Value> changedProperties;
 	//private VersionedHashMap<int, Value> removedProperties;
 
-}i
-
+};

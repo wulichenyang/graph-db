@@ -16,7 +16,7 @@ public:
 	StoreReadLayer(PropertyKeyTokenHolder *propertyKeyTokenHolder, LabelTokenHolder *labelTokenHolder,
 		RelationshipTypeTokenHolder *relationshipTokenHolder, NeoStores *neoStores);
 	StorageStatement *newStatement();
-
+	bool nodeExists(long id);
 
 private:
 	PropertyKeyTokenHolder *propertyKeyTokenHolder;

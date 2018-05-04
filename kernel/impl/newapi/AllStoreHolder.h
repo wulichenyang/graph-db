@@ -9,6 +9,7 @@ public:
 		StorageStatement *statement,
 		KernelTransaction *ktx);
 	~AllStoreHolder();
+	bool nodeExistsInStore(long nodeId);
 
 private:
 	StorageStatement *statement;

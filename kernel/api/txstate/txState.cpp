@@ -15,8 +15,13 @@ TxState::~TxState()
 
 void TxState::nodeDoCreate(long nodeId)
 {
-	nodes().add(nodeId);
+	getNodes().add(nodeId);
 	dataChanged();
+}
+
+RemovalsCountingDiffSets TxState::getRelationships()
+{
+	return this->relationships;
 }
 
 void TxState::changed()
@@ -37,13 +42,13 @@ bool TxState::ifHasChanges()
 
 void TxState::nodeDoDelete(long nodeId)
 {
-	nodes().remove(nodeId);
+	getNodes().remove(nodeId);
 	if (!nodeStatesMap.isEmpty())
 	{
-		NodeState nodeState = nodeStatesMap.remove(nodeId);
+		NodeState *nodeState = nodeStatesMap.remove(nodeId);
 
 		// NodeState.labelDiffSets()
-		SuperDiffSets<int> diff = nodeState.getLabelDiffSets();
+		SuperDiffSets<int> diff = nodeState->getLabelDiffSets();
 		set<int> added = diff.getAdded();
 
 		set<int>::iterator it = added.begin();
@@ -54,17 +59,59 @@ void TxState::nodeDoDelete(long nodeId)
 			getLabelStateNodeDiffSets(*it).remove(nodeId);
 		}
 		// 清除关于该点的Rel、Prop、
-		nodeState.clear();
+		nodeState->clear();
 	}
 	dataChanged();
-	}
-SuperDiffSets<int> TxState::getLabelStateNodeDiffSets(long nodeId)
-{
-	LabelState labelState = labelStatesMap.get(nodeId);
-	return labelState.nodeDiffSets();
 }
 
-RemovalsCountingDiffSets TxState::nodes()
+SuperDiffSets<int> TxState::getLabelStateNodeDiffSets(long nodeId)
 {
-	return RemovalsCountingDiffSets();
+	LabelState *labelState = labelStatesMap.get(nodeId);
+	return labelState->nodeDiffSets();
+}
+
+bool TxState::nodeIsDeletedInThisTx(long nodeId )
+{
+	return nodes.wasRemoved(nodeId);
+}
+
+bool TxState::nodeIsAddedInThisTx(long nodeId)
+{
+	return  nodes.isAdded(nodeId);
+}
+
+void TxState::relationshipDoCreate(long id, int relationshipTypeId, long startNodeId, long endNodeId)
+{
+	getRelationships().add(id);
+
+	if (startNodeId == endNodeId)
+	{
+		getOrCreateNodeState(startNodeId)->addRelationship(id, relationshipTypeId, Direction::BOTH);
+	}
+
+	else
+	{
+		// NodeState 保存着该 node 的添加、删除的RelSets
+		getOrCreateNodeState(startNodeId)->addRelationship(id, relationshipTypeId, Direction::OUTGOING);
+		getOrCreateNodeState(endNodeId)->addRelationship(id, relationshipTypeId, Direction::INCOMING);
+	}
+
+	getOrCreateRelationshipState(id)->setMetaData(startNodeId, endNodeId, relationshipTypeId);
+
+	dataChanged();
+}
+
+NodeState *TxState::getOrCreateNodeState(long nodeId)
+{
+	return nodeStatesMap.getOrCreate(nodeId);
+}
+
+RelationshipState *TxState::getOrCreateRelationshipState(long relationshipId)
+{
+	return relationshipStatesMap.getOrCreate(relationshipId);
+}
+
+RemovalsCountingDiffSets TxState::getNodes()
+{
+	return this->nodes;
 }

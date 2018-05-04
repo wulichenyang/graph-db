@@ -31,6 +31,11 @@ Operations * KernelTransaction::dataWrite()
 	return this->operations;
 }
 
+TxState * KernelTransaction::getTxState()
+{
+	return this->txState;
+}
+
 bool KernelTransaction::hasTxStateWithChanges()
 {
 	return txState->ifHasChanges();
