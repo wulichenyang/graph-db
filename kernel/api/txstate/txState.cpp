@@ -101,6 +101,32 @@ void TxState::relationshipDoCreate(long id, int relationshipTypeId, long startNo
 	dataChanged();
 }
 
+void TxState::relationshipDoDelete(long id, int type, long startNodeId, long endNodeId)
+{
+	getRelationships().remove(id);
+
+	if (startNodeId == endNodeId)
+	{
+		getOrCreateNodeState(startNodeId)->removeRelationship(id, type, Direction::BOTH);
+	}
+
+	else
+	{
+		// NodeStateImpl 保存着该 node 的添加、删除的RelSets            
+		getOrCreateNodeState(startNodeId)->removeRelationship(id, type, Direction::OUTGOING);
+		getOrCreateNodeState(endNodeId)->removeRelationship(id, type, Direction::INCOMING);
+	}
+
+	if (!relationshipStatesMap.isEmpty())
+	{
+		RelationshipState *removed = relationshipStatesMap.remove(id);
+		// RelationshipStateImpl ---|> PropertyContainerStateImpl.clear删除属性
+		removed->clear();
+	}
+
+	dataChanged();
+}
+
 NodeState *TxState::getOrCreateNodeState(long nodeId)
 {
 	return nodeStatesMap.getOrCreate(nodeId);

@@ -28,6 +28,7 @@ public:
 	bool nodeIsDeletedInThisTx(long nodeId);
 	bool nodeIsAddedInThisTx(long nodeId);
 	void relationshipDoCreate(long id, int relationshipTypeId, long startNodeId, long endNodeId);
+	void relationshipDoDelete(long id, int type, long startNodeId, long endNodeId);
 private:
 	static LabelState LABEL_STATE;
 	static NodeState NODE_STATE;
