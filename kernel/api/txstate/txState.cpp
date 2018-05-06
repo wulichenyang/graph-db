@@ -24,6 +24,37 @@ RemovalsCountingDiffSets TxState::getRelationships()
 	return this->relationships;
 }
 
+// 将所有的状态转换成RecordChangeSet里面用Record存储
+void TxState::accept(TxStateVisitor visitor)
+// TransactionToRecordStateVisitor.visit()
+{
+	// created nodes
+	if (!nodes.isEmpty())
+	{
+		nodes.accept(createdNodesVisitor(visitor));
+	}
+	// created/deleted relationships
+	if (relationships != null)
+	{
+		relationships.accept(createdRelationshipsVisitor(this, visitor));
+		relationships.accept(deletedRelationshipsVisitor(visitor));
+	}
+	// deleted nodes
+	if (nodes != null)
+	{
+		nodes.accept(deletedNodesVisitor(visitor));
+	}        
+	for (NodeState node : modifiedNodes())
+	{
+		node.accept(nodeVisitor(visitor));
+	}
+
+	for (RelationshipState rel : modifiedRelationships())
+	{
+		rel.accept(relVisitor(visitor));
+	}
+}
+
 void TxState::changed()
 {
 	this->hasChanges = true;
