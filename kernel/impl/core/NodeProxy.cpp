@@ -37,7 +37,7 @@ RelationshipProxy NodeProxy::createRelationshipTo(const NodeProxy & otherNode, c
 	return RelationshipProxy();
 }
 
-string NodeProxy::toString() const
+string NodeProxy::toString()
 {
 	return string();
 }
