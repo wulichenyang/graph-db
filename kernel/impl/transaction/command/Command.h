@@ -45,6 +45,20 @@ class Command
 
 	};
 
+	template <class LabelTokenCommand>
+	class LabelTokenCommand :public Command::BaseCommand {
+	public:
+		LabelTokenCommand(LabelTokenRecord before, LabelTokenRecord after);
+		bool handle(CommandVisitor handler);
+	};
+
+	template <class RelationshipTypeTokenCommand>
+	class RelationshipTypeTokenCommand :public Command::BaseCommand {
+	public:
+		RelationshipTypeTokenCommand(RelationshipTypeTokenRecord before, RelationshipTypeTokenRecord after);
+		bool handle(CommandVisitor handler);
+	};
+
 public:
 	Command();
 	~Command();
