@@ -22,7 +22,6 @@ public:
 	int changeSize();
 	void close();
 
-
 private:
 	RecordChanges<NodeRecord> *nodeRecords;
 	RecordChanges<RelationshipRecord> *relRecords;

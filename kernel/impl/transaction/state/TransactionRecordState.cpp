@@ -18,9 +18,10 @@ void TransactionRecordState::extractCommands(vector<Command>* commands)
 		recordChangeSet->getLabelTokenChanges()->changes();
 	vector<RecordChange<LabelTokenRecord>*>::iterator labelTokenIter = 
 		labelTokenVec.begin();
+
 	for (; labelTokenIter != labelTokenVec.end(); labelTokenIter++)
 	{
-		commands->insert(new Command::LabelTokenCommand(*labelTokenIter->getBefore(), *labelTokenIter->forReadingLinkage()) );
+		commands->push_back(new Command::LabelTokenCommand(*labelTokenIter->getBefore(), *labelTokenIter->forReadingLinkage()) );
 	}
 
 	// relationshipTypeTokenChanges
@@ -28,13 +29,66 @@ void TransactionRecordState::extractCommands(vector<Command>* commands)
 		recordChangeSet->getRelationshipTypeTokenChanges()->changes();
 	vector<RecordChange<LabelTokenRecord>*>::iterator RelationshipTypeTokenIter =
 		RelationshipTypeTokenVec.begin();
+
 	for (; RelationshipTypeTokenIter != RelationshipTypeTokenVec.end(); RelationshipTypeTokenIter++)
 	{
-		commands->insert(new Command::RelationshipTypeTokenCommand(*RelationshipTypeTokenIter->getBefore(), *RelationshipTypeTokenIter->forReadingLinkage()));
+		commands->push_back(new Command::RelationshipTypeTokenCommand(*RelationshipTypeTokenIter->getBefore(), *RelationshipTypeTokenIter->forReadingLinkage()));
 	}
 
+	// Collect nodes
+	vector<Command> nodeCommands;
+
+	if (recordChangeSet->getNodeRecords()->changeSize() > 0)
+	{
+		// NodeRecordChanges
+		vector<RecordChange<NodeRecord>*> NodeRecordVec =
+			recordChangeSet->getNodeRecords()->changes();
+		vector<RecordChange<NodeRecord>*>::iterator NodeRecordIter =
+			NodeRecordVec.begin();
+
+		for (; NodeRecordIter != NodeRecordVec.end(); NodeRecordIter++)
+		{
+			NodeRecord *record = prepared(*NodeRecordIter, nodeStore);
+			integrityValidator.validateNodeRecord(record);
+			nodeCommands.push_back(new Command::NodeCommand(*NodeRecordIter->getBefore(), record));
+		}
+
+		sortCommand(nodeCommands, COMMAND_SORTER);
+	}
+
+	// Collect Rels
+	vector<Command> relCommands;
+
+	if (recordChangeSet->getRelRecords()->changeSize() > 0)
+	{
+		// RelationshipRecordChanges
+		vector<RecordChange<RelationshipRecord>*> relationshipRecordVec =
+			recordChangeSet->getRelRecords()->changes();
+		vector<RecordChange<RelationshipRecord>*>::iterator relationshipRecordIter =
+			relationshipRecordVec.begin();
+
+		for (; relationshipRecordIter != relationshipRecordVec.end(); relationshipRecordIter++)
+		{
+			RelationshipRecord *record = prepared(*relationshipRecordIter, relationshipStore);
+			integrityValidator.validateRelationshipRecord(record);
+			relCommands.push_back(new Command::RelationshipCommand(*relationshipRecordIter->getBefore(), record));
+		}
+
+		sortCommand(relCommands, COMMAND_SORTER);
+	}
+	// 按照command种类分类push
+	//   增的 propCommands, relCommands, relGroupCommands, nodeCommands
+	//   改的 propCommands, relCommands, relGroupCommands, nodeCommands
+	//   删的 propCommands, relCommands, relGroupCommands, nodeCommands
+	addFiltered(commands, Command::Mode::CREATE, relCommands, nodeCommands);
+	addFiltered(commands, Command::Mode::UPDATE, relCommands, nodeCommands);
+	addFiltered(commands, Command::Mode::DELETE, relCommands, nodeCommands);
+
+	prepared = true;
 }
 
+// 状态转换为新创建的Record并加入map，之后上面加入command
+// relCreator/Deleter 待续
 void TransactionRecordState::nodeCreate(long nodeId)
 {
 	NodeRecord *nodeRecord = recordChangeSet->getNodeRecords()->create(nodeId)->forChangingData();
