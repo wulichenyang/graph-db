@@ -54,6 +54,8 @@ private:
 	StorageStatement *storageStatement;
 	// Write operations
 	Operations *operations;
+	NeoStoreTransactionApplier applier;
+
 
 	void markAsClosed(const long &txId);
 	void closeCurrentStatementIfAny();
@@ -67,7 +69,6 @@ private:
 
 	long commit();
 	void rollback();
-
 
 	void afterCommit(const long &txId);
 	void afterRollback();

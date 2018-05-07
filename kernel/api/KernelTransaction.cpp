@@ -64,7 +64,9 @@ long KernelTransaction::commit()
 
 		vector<Command> *extractedCommands = new vector<Command>();
 		// RecordStorageEngine.createCommands()
-		storageEngine.createCommands(
+		// StorageEngine里txState.accept()
+		// 且里TransactionRecordState.extractCommands
+		storageEngine->createCommands(
 			// Collection<xxCommand>
 			extractedCommands,
 			// TxState
@@ -72,50 +74,27 @@ long KernelTransaction::commit()
 			// StoreStatement
 			storageStatement,
 			// SimpleStatementLocks
-			commitLocks,
-			lastTransactionIdWhenStarted);
-		if (hasExplicitIndexChanges())
-		{
-			explicitIndexTransactionState.extractCommands(extractedCommands);
-		}
+			commitLocks);
 
-		/* Here's the deal: we track a quick-to-access hasChanges in transaction state which is true
-		* if there are any changes imposed by this transaction. Some changes made inside a transaction undo
-		* previously made changes in that same transaction, and so at some point a transaction may have
-		* changes and at another point, after more changes seemingly,
-		* the transaction may not have any changes.
-		* However, to track that "undoing" of the changes is a bit tedious, intrusive and hard to maintain
-		* and get right.... So to really make sure the transaction has changes we re-check by looking if we
-		* have produced any commands to add to the logical log.
-		*/
-		if (!extractedCommands.isEmpty())
+		if (!extractedCommands->isEmpty())
 		{
 			// Finish up the whole transaction representation
 
-			// 添加一些用户id和时间等信息，忽略暂时
-			PhysicalTransactionRepresentation transactionRepresentation =
-				new PhysicalTransactionRepresentation(extractedCommands);
-			TransactionHeaderInformation headerInformation = headerInformationFactory.create();
-			long timeCommitted = clock.millis();
-			transactionRepresentation.setHeader(headerInformation.getAdditionalHeader(),
-				headerInformation.getMasterId(),
-				headerInformation.getAuthorId(),
-				startTimeMillis, lastTransactionIdWhenStarted, timeCommitted,
-				commitLocks.getLockSessionId());
-
 			// Commit the transaction
 			success = true;
-			// commands封装在PhysicalTransactionRepresentation，内含开始时间和提交时间，masterId和authorId
-			// extractedCommands -> PhysicalTransactionRepresentation(extractedCommands)
 
-			// 将 PhysicalTransactionRepresentation 封装在 TransactionToApply batch 的链表里
+			// 将 extractedCommands 封装在 TransactionToApply batch 的链表里
 			// 内含 transactionId 和 nextTxToApply
 			// batch -> new TransactionToApply(PhysicalTransactionRepresentation)
+			for (size_t i = 0; i < extractedCommands->size(); i++)
+			{
+				extractedCommands[i].handle(applier);
+			}
 			TransactionToApply batch = new TransactionToApply(transactionRepresentation);
 
 			// TransactionRepresentationCommitProcess.commit(TransactionToApply, ...)
 			// 把TransactionToApply里的physicaltx里的commands分别实现xxCommit功能（暂时）
-			txId = transactionId = commitProcess.commit(batch, commitEvent, INTERNAL);
+			txId = transactionId = commitProcess.commit(batch);
 			commitTime = timeCommitted;
 		}
 	}
