@@ -6,8 +6,8 @@ public:
 	RecordChange();
 	// Œˆππmap/changesª· Õ∑≈ *allChanges
 	~RecordChange();
-	RecordChange(PrimitiveLongObjectMap<RecordProxy<RECORD>*> *allChanges, IntCounter changeCounter,
-		long key, RECORD record, Loader<RECORD> loader, bool created);
+	RecordChange(PrimitiveLongObjectMap<RecordProxy<RECORD>*> *allChanges, IntCounter *changeCounter,
+		long key, RECORD record, Loader<RECORD> *loader, bool created);
 	long getKey();
 	RECORD forChangingLinkage();
 	RECORD forChangingData();
@@ -21,8 +21,8 @@ public:
 
 private:
 	PrimitiveLongObjectMap<RecordChange<RECORD>*> *allChanges;
-	IntCounter changeCounter;
-	Loader<RECORD> loader;
+	IntCounter *changeCounter;
+	Loader<RECORD> *loader;
 
 	RECORD record;
 	bool created;

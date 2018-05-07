@@ -6,7 +6,7 @@ class RecordChanges
 {
 public:
 	RecordChanges();
-	RecordChanges(Loader<RECORD> loader, IntCounter globalCounter);
+	RecordChanges(Loader<RECORD> *loader, IntCounter *globalCounter);
 	// Îö¹¹map/vector/recordChanges
 	~RecordChanges();
 
@@ -21,7 +21,7 @@ public:
 
 private:
 	PrimitiveLongObjectMap<RecordChange<RECORD>*> *recordChanges;
-	Loader<RECORD> loader;
-	IntCounter changeCounter;
+	Loader<RECORD> *loader;
+	IntCounter *changeCounter;
 };
 
