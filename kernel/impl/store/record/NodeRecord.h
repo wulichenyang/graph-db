@@ -23,7 +23,7 @@ public:
 	bool isLight() const;
 	vector<DynamicRecord> getDynamicLabelRecords() const;
 	string toString() const;
-
+	bool isDense();
 private:
 	long nextRel;
 	long labels;

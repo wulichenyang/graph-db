@@ -4,6 +4,7 @@
 #include "id/IdGeneratorFactory.h"
 #include "format/RecordFormat.h"
 #include "record/AbstractBaseRecord.h"
+#include "../../../io/file/FileSwapper.h"
 
 template <class RECORD>
 class CommonAbstractStore:public AbstractBaseRecord
@@ -21,6 +22,7 @@ public:
 	);
 
 	// 读取文件中的inuse标志位
+	void freeId(long id);
 	virtual bool isInUse(long id);
 	void initialise(boolean createIfNotExists);
 	PageCursor openPageCursorForReading(long id);
@@ -36,16 +38,17 @@ public:
 	void close()newRecord();
 	RECORD *getRecord(long id, RECORD *record, RecordLoad mode);
 	void readIntoRecord(long id, RECORD *record, RecordLoad mode, PageCursor cursor);
-	void updateRecord(RECORD *record);
-protected:;
-	IdType getIdType();
-	void deleteIdGenerator();
-	RECORD *newRecord();
+	virtual void updateRecord(RECORD *record);
+protected:
 	IdType idType;
 	IdGeneratorFactory *idGeneratorFactory;
 	RecordFormat<RECORD> *recordFormat;
+	FileSwapper<RECORD> *fileSwapper;
 	int recordSize;
 
+	IdType getIdType();
+	void deleteIdGenerator();
+	RECORD *newRecord();
 	void checkAndLoadStorage(bool createIfNotExists);
 	void initialiseNewStoreFile(PagedFile file);
 	int offsetForId(long id);
@@ -59,10 +62,9 @@ private:
 
 	void loadIdGenerator();
 	void createStore(int pageSize)
-	boolean isInUse(PageCursor cursor);
+	bool isInUse(PageCursor cursor);
 	void createIdGenerator(File fileName);
-	closeIdGenerator();
+	void closeIdGenerator();
 	void flush();
 
 };
-
