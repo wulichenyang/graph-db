@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class RelationshipRecord: PrimitiveRecord
+class RelationshipRecord: public PrimitiveRecord
 {
 public:
 	RelationshipRecord();

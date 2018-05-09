@@ -13,8 +13,8 @@ public:
 
 	void markAsUnused(ByteBuffer * buf);
 
-	void read(NodeRecord * record, ByteBuffer * buf, int recordSize);
-	void write(NodeRecord *record, ByteBuffer *buf, int recordSize);
+	void read(RelationshipRecord * record, ByteBuffer * buf, int recordSize);
+	void write(RelationshipRecord *record, ByteBuffer *buf, int recordSize);
 
 private:
 	bool isInUse(char byte);
