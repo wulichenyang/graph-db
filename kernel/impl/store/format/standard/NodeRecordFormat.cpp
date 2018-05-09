@@ -31,12 +31,12 @@ void NodeRecordFormat::read(NodeRecord * record, ByteBuffer * buf, int recordSiz
 	long lsbLabels = buf->getInt() & 0xFFFFFFFFL;
 	long hsbLabels = buf->get() & 0xFF; // so that a negative byte won't fill the "extended" bits with ones.
 	long labels = lsbLabels | (hsbLabels << 32);
-	byte extra = cursor.getByte();
-	boolean dense = (extra & 0x1) > 0;
+	char extra = buf->get();
+	bool dense = (extra & 0x1) > 0;
 
-	record.initialize(inUse,
-		BaseRecordFormat.longFromIntAndMod(nextProp, propModifier), dense,
-		BaseRecordFormat.longFromIntAndMod(nextRel, relModifier), labels);
+	record->initialize(inUse,
+		BaseRecordFormat::longFromIntAndMod(nextProp, propModifier), dense,
+		BaseRecordFormat::longFromIntAndMod(nextRel, relModifier), labels);
 
 }
 

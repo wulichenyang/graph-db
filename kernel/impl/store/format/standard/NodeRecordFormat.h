@@ -2,6 +2,9 @@
 #include "../RecordFormat.h"
 #include "../../record/NodeRecord.h"
 #include "../../../../../io/fs/ByteBuffer.h"
+#include "../../../../../io/fs/FileChannel.h"
+#include "../BaseRecordFormat.h"
+
 class NodeRecordFormat:public RecordFormat<NodeRecord>
 {
 public:

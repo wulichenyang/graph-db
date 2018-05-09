@@ -11,7 +11,7 @@ class NodeRecord: public PrimitiveRecord
 public:
 	NodeRecord(long id);
 	~NodeRecord();
-	NodeRecord initialize(bool inUse, long nextProp, long nextRel, long labels);
+	NodeRecord initialize(bool inUse, long nextProp, bool dense, long nextRel, long labels);
 	NodeRecord(long id, long nextRel, long nextProp);
 	NodeRecord(long id, bool inUse, long nextRel, long nextProp, long labels);
 	NodeRecord(long id, long nextRel, long nextProp, bool inUse);
@@ -29,5 +29,6 @@ private:
 	long labels;
 	vector<DynamicRecord> dynamicLabelRecords;
 	bool isLightFlag;
+	bool dense;
 };
 

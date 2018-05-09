@@ -10,12 +10,13 @@ NodeRecord::~NodeRecord()
 {
 }
 
-NodeRecord NodeRecord::initialize(bool inUse, long nextProp, long nextRel, long labels)
+NodeRecord NodeRecord::initialize(bool inUse, long nextProp, bool dense, long nextRel, long labels)
 {
 	PrimitiveRecord::initialize(inUse);
 	this->nextProp = nextProp;
 	this->nextRel = nextRel;
 	this->labels = labels;
+	this->dense = dense;
 	return *this;
 }
 

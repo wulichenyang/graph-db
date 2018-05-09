@@ -13,7 +13,7 @@ public:
 
 	FileSwapper();
 	~FileSwapper();
-	long read(RECORD *record);
+	long read(RECORD *record, long id);
 	long write(RECORD *record);
 private:
 
@@ -25,5 +25,6 @@ private:
 
 	RecordFormat<RECORD> *recordFormat;
 
+	int swapIn(RECORD *record, long fileOffset, FileChannel *fileChannel);
 	int swapOut(RECORD *record, long fileOffset, FileChannel *fileChannel);
 };
